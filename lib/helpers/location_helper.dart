@@ -28,7 +28,7 @@ class LocationHelper {
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
     Geocoder;
     var first = addresses.first;
-    print("#" * 50);
+    print("+" * 50);
     print(
         ' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first.subAdminArea},${first.addressLine}, ${first.featureName},${first.thoroughfare}, ${first.subThoroughfare}');
 

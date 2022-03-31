@@ -3,16 +3,19 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:intl/intl.dart';
+
 import 'package:my_prayer/constnats/language.dart';
 import 'package:my_prayer/helpers/location_helper.dart';
 
 import '../../data/models/times_prayers.dart';
 import '../../data/repository/time_prayer_repo.dart';
-import '../../helpers/contato_dao.dart';
 import '../../data/wepservices/time_prayer_services.dart';
+import '../../helpers/contato_dao.dart';
+
 part 'time_prayer_state.dart';
 
 class TimePrayerCubit extends Cubit<TimePrayerState> {
@@ -23,6 +26,8 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
   List<TimesPrayers> timePrayers = [];
 
   Timer? time;
+
+  bool onLine = false;
 
   bool? lodingTimePrayer;
   List<String>? nexttime;
@@ -47,7 +52,8 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
         var first = await LocationHelper.getUserLocation();
         myCountry = first.countryName;
         myCity = first.adminArea;
-      } catch (_) {
+      } catch (e) {
+        print("Error location: $e");
         emit(UserLocationError());
         // return;
       }
@@ -56,14 +62,14 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
       myCity = city;
     }
     try {
-      selectAll();
-      // print("start: $lodingTimePrayer");
-      // final times = await placesWebServices.frtchSuggestion(myCity, myCountry);
-      // timePrayers = await timeRepository.getTimesPrayers(times);
-      // insertData(items: times);
-      // nextTimePrayer();
-      // lodingTimePrayer = false;
-      // print("start1: $lodingTimePrayer");
+      // selectAll();
+      print("start: $lodingTimePrayer");
+      final times = await placesWebServices.frtchSuggestion(myCity, myCountry);
+      timePrayers = await timeRepository.getTimesPrayers(times);
+      insertData(items: times);
+      nextTimePrayer();
+      lodingTimePrayer = false;
+      print("start1: $lodingTimePrayer");
     } catch (_) {
       selectAll();
       return;
@@ -95,7 +101,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
         nexttime = [
           key,
           (int.parse(value.toString().split(":")[0]) > 12
-              ? "${int.parse(value.toString().split(":")[0]) - 12}:${int.parse(value.toString().split(":")[1])} PM"
+              ? "${int.parse(value.toString().split(":")[0]) - 12}:${int.parse(value.toString().split(":")[1]) < 10 ? 0 : ''}${int.parse(value.toString().split(":")[1])} PM"
               : "$value AM"),
           value,
           timeDay!.date.readable,
@@ -156,7 +162,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
 
   final ContatoDAO _contatoDAO = ContatoDAO();
 
-  void selectAll() async {
+  Future<bool> selectAll() async {
     try {
       List times = await _contatoDAO.select();
       // print("retorno: ${times}");
@@ -170,7 +176,10 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
       nextTimePrayer();
       lodingTimePrayer = false;
       emit(EmitTimePrayerState());
-    } catch (_) {}
+      return timePrayers.isEmpty ? false : true;
+    } catch (_) {
+      return false;
+    }
   }
 
   void insertData({required List items}) async {

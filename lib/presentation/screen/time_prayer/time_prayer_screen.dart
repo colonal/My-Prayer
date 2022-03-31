@@ -53,6 +53,7 @@ class _TimePrayerScreenState extends State<TimePrayerScreen> {
         return true;
       }),
       builder: (context, state) {
+        if (!cubit.onLine) {}
         if ((state is UserLocationError)) {
           return SelectCountryScreen(
             context: context,

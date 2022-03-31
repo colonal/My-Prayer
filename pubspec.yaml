@@ -32,6 +32,7 @@ dependencies:
   country_state_city_pro: ^0.0.3
   cupertino_icons: ^1.0.2
   dio: ^4.0.4
+  flutter_offline: ^2.0.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
@@ -39,6 +40,7 @@ dependencies:
     git:
       url: https://github.com/JCKodel/flutter_geocoder.git
       ref: 7059f6f
+  
   geolocator: ^8.2.0
   geolocator_windows: ^0.1.0
   google_fonts: ^2.3.1
