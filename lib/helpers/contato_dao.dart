@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../constnats/sql.dart';
+import '../data/models/times_prayers.dart';
 import 'db_helper.dart';
 
 class ContatoDAO {
@@ -10,14 +11,11 @@ class ContatoDAO {
     return await _connection.db;
   }
 
-  Future<void> insert(
-      {required String timings,
-      required String date,
-      required String meta}) async {
+  Future<void> insert({required TimesPrayers timesPrayers}) async {
     try {
       Database db = await _getDatabase();
-      await db.rawInsert(
-          ConnectionSQL.insertPrayer(timings: timings, date: date, meta: meta));
+      await db
+          .rawInsert(ConnectionSQL.insertPrayer(timesPrayers: timesPrayers));
     } catch (error) {
       print("error insert: $error");
     }

@@ -14,3 +14,5 @@ class DufrantTimeState extends TimePrayerState {}
 class UserLocationError extends TimePrayerState {}
 
 class ShowInfoState extends TimePrayerState {}
+
+class NatNetworkState extends TimePrayerState {}

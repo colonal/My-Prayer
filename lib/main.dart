@@ -7,7 +7,6 @@ import 'custom_scroll_behavior.dart';
 import 'data/repository/time_prayer_repo.dart';
 import 'data/wepservices/time_prayer_services.dart';
 import 'presentation/screen/time_prayer/time_prayer_screen.dart';
-import 'package:flutter_offline/flutter_offline.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,23 +26,12 @@ class MyApp extends StatelessWidget {
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.light,
       scrollBehavior: MyCustomScrollBehavior(),
-      home: OfflineBuilder(
-        connectivityBuilder: (context, connectivity, child) {
-          return BlocProvider(
-            create: (context) {
-              final bool connected = connectivity != ConnectivityResult.none;
-              TimePrayerCubit(TimeRepository(PlacesWebServices())).onLine =
-                  connected;
-              if (connected) {
-                return TimePrayerCubit(TimeRepository(PlacesWebServices()))
-                  ..emitTimePrayerCubit();
-              } else {
-                return TimePrayerCubit(TimeRepository(PlacesWebServices()));
-              }
-            },
-            child: const TimePrayerScreen(),
-          );
+      home: BlocProvider(
+        create: (context) {
+          return TimePrayerCubit(TimeRepository(PlacesWebServices()))
+            ..emitTimePrayerCubit();
         },
+        child: const TimePrayerScreen(),
       ),
     );
   }

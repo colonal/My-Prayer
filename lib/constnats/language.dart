@@ -16,6 +16,7 @@ Map<String, String> textsAr = {
   "Name": "اسم",
   "Country": "دولة",
   "City": "مدينة",
+  "Loading": "جاري تحميل ...",
 };
 
 Map<String, String> textsEn = {
@@ -36,4 +37,5 @@ Map<String, String> textsEn = {
   "Name": "Name",
   "Country": "Country",
   "City": "City",
+  "Loading": "Loading  ...",
 };

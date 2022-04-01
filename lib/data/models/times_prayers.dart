@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:convert';
-
 class TimesPrayers {
   late Timings timings;
   late Date date;
@@ -89,13 +87,19 @@ class Gregorian {
   late String date;
   late String format;
   late String day;
+  late int month;
 
-  Gregorian({required this.date, required this.format, required this.day});
+  Gregorian(
+      {required this.date,
+      required this.format,
+      required this.day,
+      required this.month});
 
   Gregorian.fromJson(Map<String, dynamic> json) {
     date = json["date"];
     format = json["format"];
     day = json["day"];
+    month = json["month"]["number"];
   }
 }
 

@@ -8,6 +8,8 @@ import 'package:my_prayer/presentation/widgets/text_responsive.dart';
 
 import '../../widgets/icon_button_responsive.dart';
 import '../../widgets/my_divider.dart';
+import '../loading_screen.dart';
+import 'net_networck_screen.dart';
 
 class TimePrayerScreen extends StatefulWidget {
   const TimePrayerScreen({Key? key}) : super(key: key);
@@ -53,7 +55,9 @@ class _TimePrayerScreenState extends State<TimePrayerScreen> {
         return true;
       }),
       builder: (context, state) {
-        if (!cubit.onLine) {}
+        if (state is NatNetworkState) {
+          return NatNatworckScreen(cubit: cubit);
+        }
         if ((state is UserLocationError)) {
           return SelectCountryScreen(
             context: context,
@@ -84,7 +88,11 @@ class _TimePrayerScreenState extends State<TimePrayerScreen> {
                   height:
                       size.height > 530 ? size.height * 0.3 : size.height * 0.4,
                   width: size.width,
-                  color: Colors.green[900],
+                  decoration: BoxDecoration(
+                      color: Colors.green[900],
+                      image: const DecorationImage(
+                          image: AssetImage("assets/images/backgound.png"),
+                          fit: BoxFit.cover)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -383,7 +391,10 @@ class _TimePrayerScreenState extends State<TimePrayerScreen> {
           );
         }
 
-        return const Center(child: CircularProgressIndicator());
+        return LoadingScreen(
+          text: cubit.getText("Loading") ?? "Loading ...",
+          isLTR: cubit.isEn,
+        );
       },
     );
   }

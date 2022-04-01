@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
 
   Timer? time;
 
-  bool onLine = false;
+  bool isOnline = false;
 
   bool? lodingTimePrayer;
   List<String>? nexttime;
@@ -39,6 +40,21 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
   bool isHowInfo = false;
   PlacesWebServices placesWebServices = PlacesWebServices();
 
+  Map months = {
+    1: "Jan",
+    2: "Feb",
+    3: "Mar",
+    4: "Apr",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "Aug",
+    9: "Sep",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec"
+  };
+
   void showInfo() {
     isHowInfo = !isHowInfo;
     emit(ShowInfoState());
@@ -47,34 +63,34 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
   void emitTimePrayerCubit({String? city, String? country}) async {
     lodingTimePrayer = true;
     emit(EmitTimePrayerLodingState());
-    if (country == null || city == null) {
+    isOnline = await hasNetwork();
+    print("isOnline: $isOnline");
+    if (isOnline) {
+      print("Is On Line");
       try {
-        var first = await LocationHelper.getUserLocation();
-        myCountry = first.countryName;
-        myCity = first.adminArea;
-      } catch (e) {
-        print("Error location: $e");
-        emit(UserLocationError());
-        // return;
+        await getLocation(city: city, country: country);
+        final times = await runApi();
+        timePrayers = await timeRepository.getTimesPrayers(times);
+        insertData(items: timePrayers);
+        nextTimePrayer();
+        lodingTimePrayer = false;
+        emit(EmitTimePrayerState());
+      } catch (_) {
+        selectAll();
+        return;
       }
     } else {
-      myCountry = country;
-      myCity = city;
+      print("Is OffLine");
+      bool inData = await selectAll();
+      if (inData) {
+        print("Is Data");
+        lodingTimePrayer = false;
+        emit(EmitTimePrayerState());
+      } else {
+        print("Is Not Data");
+        emit(NatNetworkState());
+      }
     }
-    try {
-      // selectAll();
-      print("start: $lodingTimePrayer");
-      final times = await placesWebServices.frtchSuggestion(myCity, myCountry);
-      timePrayers = await timeRepository.getTimesPrayers(times);
-      insertData(items: times);
-      nextTimePrayer();
-      lodingTimePrayer = false;
-      print("start1: $lodingTimePrayer");
-    } catch (_) {
-      selectAll();
-      return;
-    }
-    emit(EmitTimePrayerState());
   }
 
   void nextTimePrayer() {
@@ -83,9 +99,12 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd-MM-y').format(now);
 
-    timeDay = timePrayers
-        .firstWhere((element) => element.date.gregorian.date == formattedDate);
-
+    timeDay = timePrayers.firstWhere((element) {
+      print(
+          "element: ${element.date.gregorian.date} formattedDate:$formattedDate");
+      return element.date.gregorian.date == formattedDate;
+    });
+    print("timeDay: $timeDay");
     bool check = false;
     // TODO timeDay!.timingsJson["Fajr"] = "21:42";
     timeDay!.timingsJson.forEach((key, value) {
@@ -111,9 +130,14 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     });
     if (!check) {
       index = timePrayers.indexOf(timeDay!);
-
-      TimesPrayers tomorrow = timePrayers[index + 1];
-
+      TimesPrayers tomorrow;
+      if ((index + 1) != timePrayers.length) {
+        tomorrow = timePrayers[index + 1];
+      } else {
+        tomorrow = timePrayers[index];
+        String m = months[DateTime.now().month + 1];
+        tomorrow.date.readable = "01 $m " + DateTime.now().year.toString();
+      }
       String formatTime = tomorrow.timingsJson["Fajr"];
       nexttime = [
         "Fajr",
@@ -173,25 +197,98 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
         print("ERROR selectAll: $e");
       }
       print("timePrayers: ${timePrayers.length}");
-      nextTimePrayer();
-      lodingTimePrayer = false;
-      emit(EmitTimePrayerState());
-      return timePrayers.isEmpty ? false : true;
-    } catch (_) {
+      if (timePrayers.isNotEmpty) {
+        print(
+            "XxX: ${timePrayers[timePrayers.length - 1].date.gregorian.month} == ${(DateTime.now().month - 1)} bool ${timePrayers[timePrayers.length - 1].date.gregorian.month == (DateTime.now().month - 1)}");
+        if (timePrayers[timePrayers.length - 1].date.gregorian.month ==
+            (DateTime.now().month)) {
+          print("XxXx");
+          nextTimePrayer();
+          return true;
+        }
+        return false;
+      }
+
+      return false;
+    } catch (E) {
+      print("EEE: $E");
       return false;
     }
   }
 
-  void insertData({required List items}) async {
+  void insertData({required List<TimesPrayers> items}) async {
     await _contatoDAO.delete();
     print(":insertData");
 
     for (var item in items) {
       await _contatoDAO.insert(
-        timings: jsonEncode(item["timings"]),
-        date: jsonEncode(item["date"]),
-        meta: jsonEncode(item["meta"]),
+        timesPrayers: item,
       );
+    }
+  }
+
+  void checkViweScreen({String? city, String? country}) async {
+    lodingTimePrayer = true;
+    emit(EmitTimePrayerLodingState());
+    if (isOnline) {
+      try {
+        await getLocation(city: city, country: country);
+        final times = await runApi();
+        timePrayers = await timeRepository.getTimesPrayers(times);
+        insertData(items: timePrayers);
+        nextTimePrayer();
+        lodingTimePrayer = false;
+        emit(EmitTimePrayerState());
+      } catch (_) {
+        bool inData = await selectAll();
+        print("inData 1 : $inData");
+        if (inData) {
+          lodingTimePrayer = false;
+          emit(EmitTimePrayerState());
+        } else {
+          emit(NatNetworkState());
+        }
+        return;
+      }
+    } else {
+      bool inData = await selectAll();
+      print("inData 2 : $inData");
+      if (inData) {
+        lodingTimePrayer = false;
+        emit(EmitTimePrayerState());
+      } else {
+        emit(NatNetworkState());
+      }
+    }
+  }
+
+  Future<void> getLocation({String? city, String? country}) async {
+    if (country == null || city == null) {
+      try {
+        var first = await LocationHelper.getUserLocation();
+        myCountry = first.countryName;
+        myCity = first.adminArea;
+      } catch (e) {
+        print("Error location: $e");
+        emit(UserLocationError());
+        return;
+      }
+    } else {
+      myCountry = country;
+      myCity = city;
+    }
+  }
+
+  Future<List<dynamic>> runApi() async {
+    return await placesWebServices.frtchSuggestion(myCity, myCountry);
+  }
+
+  Future<bool> hasNetwork() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+    } on SocketException catch (_) {
+      return false;
     }
   }
 }
