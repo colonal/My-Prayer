@@ -70,6 +70,8 @@ flutter:
     - assets/images/backgound.svg
     - assets/images/loading.gif
     - assets/images/pray.png
+    - assets/images/qoran.png
+    - assets/quran/Quran.json
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

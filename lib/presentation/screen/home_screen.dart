@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_prayer/presentation/screen/qoran_screen.dart';
+import '../../business_logic/cubit/qoran_cubit.dart';
 import '../widgets/show_data_time.dart';
 import './time_prayer/time_prayer_screen.dart';
 
 import '../../business_logic/cubit/time_prayer_cubit.dart';
-import '../../data/repository/time_prayer_repo.dart';
-import '../../data/wepservices/time_prayer_services.dart';
 import '../widgets/text_responsive.dart';
 import 'loading_screen.dart';
 import 'time_prayer/net_networck_screen.dart';
@@ -77,48 +77,37 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         padding: const EdgeInsets.all(8),
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => BlocBuilder<TimePrayerCubit,
-                                          TimePrayerState>(
-                                      bloc: cubit,
-                                      builder: (c, s) => TimePrayerScreen(
-                                            cubit: cubit,
-                                          ))));
-                            },
-                            child: Card(
-                              color: themeData.backgroundColor.withOpacity(0.5),
-                              shadowColor: themeData.primaryColorDark,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              margin: const EdgeInsets.only(top: 5),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Image.asset(
-                                        "assets/images/pray.png",
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TextResponsive(
-                                                text: "Time Prayer",
-                                                maxSize: 20,
-                                                size: size)
-                                            .headline3(context, bold: true),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          buidGridItem(
+                              context: context,
+                              themeData: themeData,
+                              size: size,
+                              text: "Time Prayer",
+                              image: "assets/images/pray.png",
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => BlocBuilder<TimePrayerCubit,
+                                            TimePrayerState>(
+                                        bloc: cubit,
+                                        builder: (c, s) => TimePrayerScreen(
+                                              cubit: cubit,
+                                            ))));
+                              }),
+                          buidGridItem(
+                              context: context,
+                              themeData: themeData,
+                              size: size,
+                              text: "Qoran",
+                              image: "assets/images/qoran.png",
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) =>
+                                      // BlocConsumer<QoranCubit, QoranState>(
+                                      //     listener: ((context, state) {}),
+                                      //     builder: (c, s) =>
+                                      //         const QoranScreen()),
+                                      const QoranScreen(),
+                                ));
+                              }),
                         ],
                       ),
                     ),
@@ -132,5 +121,45 @@ class _HomeScreenState extends State<HomeScreen> {
             isLTR: cubit.isEn,
           );
         });
+  }
+
+  GestureDetector buidGridItem(
+      {required BuildContext context,
+      required ThemeData themeData,
+      required Size size,
+      required String image,
+      required String text,
+      required void Function()? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: themeData.backgroundColor.withOpacity(0.5),
+        shadowColor: themeData.primaryColorDark,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        margin: const EdgeInsets.only(top: 5),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 5),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Image.asset(
+                  image,
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextResponsive(text: text, maxSize: 20, size: size)
+                      .headline3(context, bold: true),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
