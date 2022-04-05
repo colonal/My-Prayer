@@ -22,7 +22,8 @@ part 'time_prayer_state.dart';
 class TimePrayerCubit extends Cubit<TimePrayerState> {
   TimeRepository timeRepository;
   TimePrayerCubit(this.timeRepository) : super(TimePrayerInitial());
-  static TimePrayerCubit get(context) => BlocProvider.of(context);
+  static TimePrayerCubit get(context) =>
+      BlocProvider.of<TimePrayerCubit>(context);
 
   List<TimesPrayers> timePrayers = [];
 
@@ -75,7 +76,8 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
         nextTimePrayer();
         lodingTimePrayer = false;
         emit(EmitTimePrayerState());
-      } catch (_) {
+      } catch (E) {
+        print("Is On Line Error: $E");
         selectAll();
         return;
       }
@@ -109,7 +111,6 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     // TODO timeDay!.timingsJson["Fajr"] = "21:42";
     timeDay!.timingsJson.forEach((key, value) {
       print("t.hour: ${t.hour}");
-      // print("value: $value\tkey: $key");
       if (((t.hour < int.parse(value.toString().split(":")[0])) ||
               ((t.hour == int.parse(value.toString().split(":")[0]))
                   ? (t.minute < int.parse(value.toString().split(":")[1]))
@@ -151,14 +152,15 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     }
     print("check: $check");
     print("Next: $nexttime");
-    try {
-      dufrantTime();
-    } catch (e) {
-      print("E: $e");
-    }
+    // try {
+    //   dufrantTime();
+    // } catch (e) {
+    //   print("E: $e");
+    // }
   }
 
   void dufrantTime() {
+    print("dufrantTime");
     time = Timer.periodic(const Duration(seconds: 1), (timer) {
       var to = (DateFormat('dd MMM yyyy HH:mm')
           .parse("${nexttime![3]} " + nexttime![2]));

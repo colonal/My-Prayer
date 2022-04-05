@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_prayer/presentation/screen/home_screen.dart';
 import 'package:my_prayer/themes/app_thime.dart';
 
 import 'business_logic/cubit/time_prayer_cubit.dart';
@@ -26,12 +27,16 @@ class MyApp extends StatelessWidget {
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.light,
       scrollBehavior: MyCustomScrollBehavior(),
-      home: BlocProvider(
-        create: (context) {
-          return TimePrayerCubit(TimeRepository(PlacesWebServices()))
-            ..emitTimePrayerCubit();
-        },
-        child: const TimePrayerScreen(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<TimePrayerCubit>(
+            lazy: false,
+            create: (context) =>
+                TimePrayerCubit(TimeRepository(PlacesWebServices()))
+                  ..emitTimePrayerCubit(),
+          )
+        ],
+        child: const HomeScreen(),
       ),
     );
   }
