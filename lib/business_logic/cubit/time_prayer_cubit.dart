@@ -109,6 +109,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     print("timeDay: $timeDay");
     bool check = false;
     // TODO timeDay!.timingsJson["Fajr"] = "21:42";
+    timeDay!.timingsJson["Fajr"] = "3:10";
     timeDay!.timingsJson.forEach((key, value) {
       print("t.hour: ${t.hour}");
       if (((t.hour < int.parse(value.toString().split(":")[0])) ||
@@ -268,8 +269,8 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     if (country == null || city == null) {
       try {
         var first = await LocationHelper.getUserLocation();
-        myCountry = first.countryName;
-        myCity = first.adminArea;
+        myCountry = first.country;
+        myCity = first.administrativeArea;
       } catch (e) {
         print("Error location: $e");
         emit(UserLocationError());

@@ -9,11 +9,7 @@ import 'custom_scroll_behavior.dart';
 import 'data/repository/time_prayer_repo.dart';
 import 'data/wepservices/time_prayer_services.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

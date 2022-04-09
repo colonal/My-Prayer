@@ -35,10 +35,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  flutter_geocoder:
-    git:
-      url: https://github.com/JCKodel/flutter_geocoder.git
-      ref: 7059f6f
+  geocoding: ^2.0.4
+  # flutter_geocoder:
+  #   git:
+  #     url: https://github.com/JCKodel/flutter_geocoder.git
+  #     ref: 7059f6f
   flutter_offline: ^2.1.0
   geolocator: ^8.2.0
   geolocator_windows: ^0.1.0
@@ -48,6 +49,7 @@ dependencies:
   sqflite: ^2.0.0+3
   sqflite_common_ffi: ^2.0.0+1
   sqlite3_flutter_libs: ^0.5.4
+  syncfusion_flutter_pdfviewer: ^20.1.47-beta
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -71,7 +73,12 @@ flutter:
     - assets/images/loading.gif
     - assets/images/pray.png
     - assets/images/qoran.png
+    - assets/images/kaaba.png
+    - assets/images/civil.webp
+    - assets/images/dua-hands.png
+    - assets/images/prayer.jpg
     - assets/quran/Quran.json
+    - assets/quran/holy_quran_full.pdf
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

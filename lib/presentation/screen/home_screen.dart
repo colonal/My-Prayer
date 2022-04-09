@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_prayer/presentation/screen/pdf_screen.dart';
 import 'package:my_prayer/presentation/screen/qoran_screen.dart';
 import '../../business_logic/cubit/qoran_cubit.dart';
 import '../widgets/show_data_time.dart';
@@ -100,12 +101,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               image: "assets/images/qoran.png",
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) =>
-                                      // BlocConsumer<QoranCubit, QoranState>(
-                                      //     listener: ((context, state) {}),
-                                      //     builder: (c, s) =>
-                                      //         const QoranScreen()),
-                                      const QoranScreen(),
+                                  builder: (_) => const QoranScreen(),
+                                ));
+                              }),
+                          buidGridItem(
+                              context: context,
+                              themeData: themeData,
+                              size: size,
+                              text: "Qoran",
+                              image: "assets/images/qoran.png",
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => const PdfScreen(),
                                 ));
                               }),
                         ],
