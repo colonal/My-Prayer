@@ -109,7 +109,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     print("timeDay: $timeDay");
     bool check = false;
     // TODO timeDay!.timingsJson["Fajr"] = "21:42";
-    timeDay!.timingsJson["Fajr"] = "3:10";
+    timeDay!.timingsJson["Fajr"] = "4:55";
     timeDay!.timingsJson.forEach((key, value) {
       print("t.hour: ${t.hour}");
       if (((t.hour < int.parse(value.toString().split(":")[0])) ||
@@ -158,6 +158,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     // } catch (e) {
     //   print("E: $e");
     // }
+    emit(DufrantTimeState());
   }
 
   void dufrantTime() {
@@ -174,12 +175,13 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
         cancelTimer();
         nextTimePrayer();
       }
-      emit(DufrantTimeState());
     });
   }
 
   void cancelTimer() {
-    time!.cancel();
+    if (time != null) {
+      time!.cancel();
+    }
   }
 
   String? getText(String text) {
@@ -293,5 +295,31 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     } on SocketException catch (_) {
       return false;
     }
+  }
+}
+
+class MyBlocObserver extends BlocObserver {
+  @override
+  void onCreate(BlocBase bloc) {
+    super.onCreate(bloc);
+    print('onCreate -- ${bloc.runtimeType}');
+  }
+
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    print('onChange -- ${bloc.runtimeType}, $change');
+  }
+
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    print('onError -- ${bloc.runtimeType}, $error');
+    super.onError(bloc, error, stackTrace);
+  }
+
+  @override
+  void onClose(BlocBase bloc) {
+    super.onClose(bloc);
+    print('onClose -- ${bloc.runtimeType}');
   }
 }

@@ -86,12 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               image: "assets/images/pray.png",
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => BlocBuilder<TimePrayerCubit,
-                                            TimePrayerState>(
-                                        bloc: cubit,
-                                        builder: (c, s) => TimePrayerScreen(
-                                              cubit: cubit,
-                                            ))));
+                                  builder: (_) =>
+                                      TimePrayerScreen(cubit: cubit),
+                                ));
                               }),
                           buidGridItem(
                               context: context,

@@ -9,7 +9,10 @@ import 'custom_scroll_behavior.dart';
 import 'data/repository/time_prayer_repo.dart';
 import 'data/wepservices/time_prayer_services.dart';
 
-void main() => runApp(const MyApp());
+void main() => BlocOverrides.runZoned(
+      () => runApp(const MyApp()),
+      blocObserver: MyBlocObserver(),
+    );
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
