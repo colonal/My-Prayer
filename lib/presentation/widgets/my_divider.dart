@@ -13,17 +13,17 @@ SizedBox buildDivider({bool isVertical = false}) {
   );
 }
 
-SizedBox buildDivider1({bool isVertical = false}) {
+SizedBox buildDivider1({bool isVertical = false,Color color =Colors.white}) {
   return SizedBox(
     height: isVertical ? 30 : 1,
     child: Center(
         child: isVertical
-            ? const VerticalDivider(
+            ?  VerticalDivider(
                 width: 5,
-                color: Colors.white,
+                color: color,
               )
             : Divider(
-                color: Colors.white.withOpacity(0.6),
+                color: color.withOpacity(0.6),
               )),
   );
 }

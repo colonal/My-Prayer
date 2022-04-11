@@ -4,6 +4,7 @@ import 'package:my_prayer/business_logic/cubit/qoran_cubit.dart';
 import 'package:my_prayer/presentation/screen/home_screen.dart';
 import 'package:my_prayer/themes/app_thime.dart';
 
+import 'business_logic/cubit/azkar_cubit.dart';
 import 'business_logic/cubit/time_prayer_cubit.dart';
 import 'custom_scroll_behavior.dart';
 import 'data/repository/time_prayer_repo.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
             lazy: false,
             create: (context) => QoranCubit()..readJson(),
           ),
+          BlocProvider(create: (_) => AzkarCubit()..readJson())
         ],
         child: const HomeScreen(),
       ),

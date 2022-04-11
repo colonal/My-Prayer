@@ -43,12 +43,12 @@ class TextResponsive {
     );
   }
 
-  Widget headline3(context, {bool bold = false, Color? color}) {
+  Widget headline3(context, {bool bold = false, Color? color, int maxLines = 2}) {
     return FittedBox(
       fit: BoxFit.cover,
       child: Text(
         text,
-        maxLines: 2,
+        maxLines: maxLines,
         overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.headline3!.copyWith(
               fontWeight: bold ? FontWeight.bold : FontWeight.normal,

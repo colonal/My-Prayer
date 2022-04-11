@@ -28,7 +28,7 @@ class ContatoDAO {
       List contatos = linhas;
       return contatos;
     } catch (error) {
-      throw Exception();
+      throw Exception(error);
     }
   }
 
