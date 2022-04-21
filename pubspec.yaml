@@ -35,17 +35,15 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  geocoding: ^2.0.4
-  # flutter_geocoder:
-  #   git:
-  #     url: https://github.com/JCKodel/flutter_geocoder.git
-  #     ref: 7059f6f
   flutter_offline: ^2.1.0
+  geocoding: ^2.0.4
   geolocator: ^8.2.0
   geolocator_windows: ^0.1.0
   google_fonts: ^2.3.1
   intl: ^0.17.0
   location: ^4.3.0
+  scrollable_positioned_list: ^0.2.3
+  shared_preferences: ^2.0.13
   sqflite: ^2.0.0+3
   sqflite_common_ffi: ^2.0.0+1
   sqlite3_flutter_libs: ^0.5.4
@@ -81,6 +79,7 @@ flutter:
     - assets/images/praying.png
     - assets/quran/Quran.json
     - assets/quran/azkar.json
+    - assets/quran/q.json
     - assets/quran/holy_quran_full.pdf
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

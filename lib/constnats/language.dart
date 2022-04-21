@@ -17,6 +17,10 @@ Map<String, String> textsAr = {
   "Country": "دولة",
   "City": "مدينة",
   "Loading": "جاري تحميل ...",
+  "Home": "الصفحة الرئيسية",
+  "Bookmark": "الاشارة المرجعية",
+  "Favorite": "المفضل",
+  "verses": "آياتها",
 };
 
 Map<String, String> textsEn = {
@@ -38,4 +42,8 @@ Map<String, String> textsEn = {
   "Country": "Country",
   "City": "City",
   "Loading": "Loading  ...",
+  "Home": "Home",
+  "Bookmark": "Bookmark",
+  "Favorite": "Favorite",
+  "verses": "verses",
 };

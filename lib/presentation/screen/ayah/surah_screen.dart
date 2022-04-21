@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_prayer/data/models/qoran.dart';
 
-import '../widgets/icon_button_responsive.dart';
-import '../widgets/text_responsive.dart';
+import '../../widgets/text_responsive.dart';
+import '../../widgets/icon_button_responsive.dart';
 
 class SurahScreen extends StatefulWidget {
   final List qoran;

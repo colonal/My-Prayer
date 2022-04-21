@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_prayer/business_logic/cubit/azkar_cubit.dart';
+import 'package:my_prayer/presentation/screen/ayah/ayah_screen.dart';
 import 'package:my_prayer/presentation/screen/azkar/azkar_screen.dart';
 import 'package:my_prayer/presentation/screen/Qoran/pdf_screen.dart';
-import 'package:my_prayer/presentation/screen/qoran_screen.dart';
-import '../../business_logic/cubit/qoran_cubit.dart';
+import 'package:my_prayer/presentation/screen/ayah/qoran_screen.dart';
+import '../../business_logic/cubit/ayah_cubit.dart';
 import '../widgets/show_data_time.dart';
 import './time_prayer/time_prayer_screen.dart';
 
@@ -100,7 +101,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               image: "assets/images/qoran.png",
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => const QoranScreen(),
+                                  builder: (_) => BlocProvider<AyahCubit>(
+                                      create: (context) =>
+                                          AyahCubit()..readJson(),
+                                      child: const AyahScreen()),
                                 ));
                               }),
                           buidGridItem(
@@ -124,9 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (_) => BlocProvider.value(
                                     value: AzkarCubit()..readJson(),
-                                    child:
-                                       const AzkarScreen(),
-
+                                    child: const AzkarScreen(),
                                   ),
                                 ));
                               }),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_prayer/business_logic/cubit/qoran_cubit.dart';
-import 'package:my_prayer/data/models/qoran.dart';
 import 'package:my_prayer/presentation/widgets/icon_button_responsive.dart';
 import 'package:my_prayer/presentation/widgets/text_responsive.dart';
 

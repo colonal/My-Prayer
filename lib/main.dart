@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_prayer/business_logic/cubit/ayah_cubit.dart';
 import 'package:my_prayer/business_logic/cubit/qoran_cubit.dart';
 import 'package:my_prayer/presentation/screen/home_screen.dart';
 import 'package:my_prayer/themes/app_thime.dart';
@@ -9,11 +10,16 @@ import 'business_logic/cubit/time_prayer_cubit.dart';
 import 'custom_scroll_behavior.dart';
 import 'data/repository/time_prayer_repo.dart';
 import 'data/wepservices/time_prayer_services.dart';
+import 'helpers/cache_helper.dart';
 
-void main() => BlocOverrides.runZoned(
-      () => runApp(const MyApp()),
-      blocObserver: MyBlocObserver(),
-    );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
+  BlocOverrides.runZoned(
+    () => runApp(const MyApp()),
+    blocObserver: MyBlocObserver(),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -39,7 +45,9 @@ class MyApp extends StatelessWidget {
             lazy: false,
             create: (context) => QoranCubit()..readJson(),
           ),
-          BlocProvider(create: (_) => AzkarCubit()..readJson())
+          BlocProvider<AzkarCubit>(
+              create: (context) => AzkarCubit()..readJson()),
+          BlocProvider<AyahCubit>(create: (context) => AyahCubit()..readJson()),
         ],
         child: const HomeScreen(),
       ),
