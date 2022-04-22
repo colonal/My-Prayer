@@ -40,30 +40,34 @@ class _PdfScreenState extends State<PdfScreen> {
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            SfPdfViewer.asset(
-              'assets/quran/holy_quran_full.pdf',
-              key: _pdfViewerKey,
-              controller: _pdfViewerController,
-              pageLayoutMode: PdfPageLayoutMode.single,
-              // scrollDirection: PdfScrollDirection.horizontal,
+            SizedBox(
+              height: size.height,
+              width: size.width,
+              child: SfPdfViewer.asset(
+                'assets/quran/holy_quran_full.pdf',
+                key: _pdfViewerKey,
+                controller: _pdfViewerController,
+                pageLayoutMode: PdfPageLayoutMode.single,
+                // scrollDirection: PdfScrollDirection.horizontal,
 
-              canShowScrollHead: false,
-              enableTextSelection: true,
-              onPageChanged: (PdfPageChangedDetails pageChangedDetails) {
-                setState(() {
-                  page = pageChangedDetails.newPageNumber;
-                  for (int index = 0; index < quranInfo.length; ++index) {
-                    debugPrint("index: $index");
-                    if (quranInfo[index]["Number_Page"] <= page &&
-                        page < quranInfo[index + 1]["Number_Page"]) {
-                      indexQuranInfo = index;
-                      debugPrint("indexQuranInfo 0: $indexQuranInfo");
-                      break;
+                canShowScrollHead: false,
+                enableTextSelection: true,
+                onPageChanged: (PdfPageChangedDetails pageChangedDetails) {
+                  setState(() {
+                    page = pageChangedDetails.newPageNumber;
+                    for (int index = 0; index < quranInfo.length; ++index) {
+                      debugPrint("index: $index");
+                      if (quranInfo[index]["Number_Page"] <= page &&
+                          page < quranInfo[index + 1]["Number_Page"]) {
+                        indexQuranInfo = index;
+                        debugPrint("indexQuranInfo 0: $indexQuranInfo");
+                        break;
+                      }
                     }
-                  }
-                  debugPrint("indexQuranInfo: $indexQuranInfo");
-                });
-              },
+                    debugPrint("indexQuranInfo: $indexQuranInfo");
+                  });
+                },
+              ),
             ),
             Positioned(
               top: 0,
@@ -172,11 +176,11 @@ class _PdfScreenState extends State<PdfScreen> {
                                           text: "الفهرس",
                                           icon: Icons.menu_rounded,
                                           onTap: () async {
-                                            final contact =
-                                                await Navigator.of(context)
-                                                    .push(MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            const ContentsScreen()));
+                                            final contact = await Navigator.of(
+                                                    context)
+                                                .push(MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        const ContentsScreen()));
                                             if (contact != null) {
                                               _pdfViewerController
                                                   .jumpToPage(contact);

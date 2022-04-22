@@ -29,6 +29,7 @@ class AyahCubit extends Cubit<AyahState> {
 
   Future<void> readJson() async {
     emit(AyahLodingState());
+    getLanguage();
     final String responsr = await rootBundle.loadString("assets/quran/q.json");
     final data = await json.decode(responsr);
     for (var item in data) {
@@ -42,6 +43,10 @@ class AyahCubit extends Cubit<AyahState> {
   void getBookmark() {
     indexSurah = CacheHelper.getData(key: "indexSurah");
     indexAyah = CacheHelper.getData(key: "indexAyah");
+  }
+
+  void getLanguage() {
+    isEn = CacheHelper.getData(key: "Language") ?? false;
   }
 
   void getFavorite() {

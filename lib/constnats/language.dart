@@ -21,6 +21,8 @@ Map<String, String> textsAr = {
   "Bookmark": "الاشارة المرجعية",
   "Favorite": "المفضل",
   "verses": "آياتها",
+  "Azkar": "أذكار",
+  "Repetition": "Repetition",
 };
 
 Map<String, String> textsEn = {
@@ -46,4 +48,6 @@ Map<String, String> textsEn = {
   "Bookmark": "Bookmark",
   "Favorite": "Favorite",
   "verses": "verses",
+  "Azkar": "Azkar",
+  "Repetition": "Repetition",
 };

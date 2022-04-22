@@ -6,6 +6,7 @@ import 'package:my_prayer/presentation/widgets/my_divider.dart';
 
 import '../../widgets/icon_button_responsive.dart';
 import '../../widgets/text_responsive.dart';
+import '../loading_screen.dart';
 
 class AzkarScreen extends StatefulWidget {
   const AzkarScreen({Key? key}) : super(key: key);
@@ -28,16 +29,20 @@ class _AzkarScreenState extends State<AzkarScreen> {
     return BlocConsumer<AzkarCubit, AzkarState>(
       listener: (_, __) {},
       builder: (context, state) {
-
         List v = cubit.azkars.keys.toList();
-
+        if (state is AzkarLodingState) {
+          return LoadingScreen(text: cubit.getText("Loading") ?? "Loading");
+        }
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             toolbarHeight: 40,
             centerTitle: true,
-            title: TextResponsive(text: "Azkar", maxSize: 20, size: size)
+            title: TextResponsive(
+                    text: cubit.getText("Azkar") ?? "Azkar",
+                    maxSize: 20,
+                    size: size)
                 .headline3(context),
             leading: IconButtonResponsive(
               icons: Icons.arrow_back_ios_new_outlined,
@@ -45,30 +50,75 @@ class _AzkarScreenState extends State<AzkarScreen> {
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
-          body: SafeArea(
-              child: SizedBox(
-            width: double.infinity,
-            child: ListView.separated(
-                itemCount: v.length,
-                separatorBuilder: (_,__)=>buildDivider1(color: Theme.of(context).primaryColorDark),
-                itemBuilder: (_, index) =>
-                    GestureDetector(
-                      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (_)=>ItemAzkarScreen(azkars:cubit.azkars[v[index]]))),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextResponsive(
-                            text: v[index].toString(),
-                            size: size,
-                            maxSize: 20,
-                      ).headline3(context,bold: true),
-                          ],
-                  ),),
-                    ),),
-          )),
+          body: SingleChildScrollView(
+            child: SafeArea(
+              child: Directionality(
+                textDirection:
+                    cubit.isEn ? TextDirection.ltr : TextDirection.rtl,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => ItemAzkarScreen(
+                                      cubit: cubit,
+                                      azkars: cubit.favorite,
+                                      isFavorite: true,
+                                    ))),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TextResponsive(
+                                text: cubit.getText("Favorite") ?? "Favorite",
+                                size: size,
+                                maxSize: 20,
+                              ).headline3(context, bold: true),
+                            ],
+                          ),
+                        ),
+                      ),
+                      buildDivider1(color: Theme.of(context).primaryColorDark),
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: v.length,
+                        separatorBuilder: (_, __) => buildDivider1(
+                            color: Theme.of(context).primaryColorDark),
+                        itemBuilder: (_, index) => GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => ItemAzkarScreen(
+                                      cubit: cubit,
+                                      azkars: cubit.azkars[v[index]]))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                TextResponsive(
+                                  text: v[index].toString(),
+                                  size: size,
+                                  maxSize: 20,
+                                ).headline3(context, bold: true),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
         );
       },
     );
