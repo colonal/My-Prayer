@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_prayer/business_logic/cubit/azkar_cubit.dart';
+import 'package:my_prayer/business_logic/cubit/qoran_cubit.dart';
+import 'package:my_prayer/presentation/screen/Qoran/quran_screen.dart';
 import 'package:my_prayer/presentation/screen/ayah/ayah_screen.dart';
 import 'package:my_prayer/presentation/screen/azkar/azkar_screen.dart';
 import 'package:my_prayer/presentation/screen/Qoran/pdf_screen.dart';
@@ -116,6 +118,20 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (_) => const PdfScreen(),
+                                ));
+                              }),
+                          buidGridItem(
+                              context: context,
+                              themeData: themeData,
+                              size: size,
+                              text: "Qoran",
+                              image: "assets/images/qoran.png",
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => BlocProvider.value(
+                                    value: QoranCubit()..getFavorite(),
+                                    child: const QuranScreen(),
+                                  ),
                                 ));
                               }),
                           buidGridItem(
