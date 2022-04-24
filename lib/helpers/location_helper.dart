@@ -28,7 +28,6 @@ class LocationHelper {
 
     // this is all you need
     Placemark placeMark = placemarks[0];
-
     return placeMark;
   }
 }

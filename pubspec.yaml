@@ -79,10 +79,11 @@ flutter:
     - assets/images/praying.png
     - assets/images/ayah.png
     - assets/images/saveMark.png
-    - assets/quran/Quran.json
+    - assets/images/setting.png
+    - assets/images/mode.gif
+    - assets/images/language.png
     - assets/quran/azkar.json
-    - assets/quran/q.json
-    - assets/quran/holy_quran_full.pdf
+    - assets/quran/ayah.json
     - assets/quran/quran-images/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

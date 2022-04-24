@@ -5,6 +5,7 @@ class TimesPrayers {
   late Date date;
   late Map timingsJson;
   late Meta meta;
+  late Hijri hijri;
 
   TimesPrayers({required this.timings, required this.date, required this.meta});
   TimesPrayers.fromJson(Map<String, dynamic> json) {
@@ -27,6 +28,11 @@ class TimesPrayers {
       meta = Meta.fromJson(json["meta"]);
     } catch (e) {
       print("meta E: $e");
+    }
+    try {
+      hijri = Hijri.fromJson(json["date"]["hijri"]);
+    } catch (e) {
+      print("hijri E: $e");
     }
   }
 }
@@ -137,5 +143,33 @@ class Meta {
     school = json["school"];
     latitudeAdjustmentMethod = json["latitudeAdjustmentMethod"];
     name = json["method"]["name"];
+  }
+}
+
+class Hijri {
+  late String day;
+  late String date;
+  late String weekdayEn;
+  late String weekdayAr;
+  late String monthAr;
+  late String monthEn;
+  late int monthNumber;
+  Hijri({
+    required this.day,
+    required this.date,
+    required this.weekdayEn,
+    required this.weekdayAr,
+    required this.monthAr,
+    required this.monthEn,
+    required this.monthNumber,
+  });
+  Hijri.fromJson(Map<String, dynamic> json) {
+    day = json["day"];
+    date = json["date"];
+    weekdayEn = json["weekday"]["en"];
+    weekdayAr = json["weekday"]["ar"];
+    monthAr = json["month"]["ar"];
+    monthEn = json["month"]["en"];
+    monthNumber = json["month"]["number"];
   }
 }

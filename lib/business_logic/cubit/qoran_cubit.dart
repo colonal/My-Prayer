@@ -16,18 +16,6 @@ class QoranCubit extends Cubit<QoranState> {
 
   static QoranCubit get(context) => BlocProvider.of(context);
 
-  List qurans = [];
-
-  Future<void> readJson() async {
-    emit(QoranLodingState());
-    final String responsr =
-        await rootBundle.loadString("assets/quran/Quran.json");
-    final data = await json.decode(responsr);
-
-    qurans = data.map((data) => Qoran.fromJson(data)).toList();
-    emit(GetQoranState());
-  }
-
   int page = 1;
   double opacity = 1;
   bool showMenu = true;
@@ -65,22 +53,15 @@ class QoranCubit extends Cubit<QoranState> {
 
   void changePage(indexPage) {
     page = indexPage + 1;
-    // debugPrint("=" * 10);
-    // debugPrint("index: $indexPage");
-    // debugPrint("quranInfo.length: ${quranInfo.length}");
+
     for (int index = 0; index < quranInfo.length; ++index) {
-      debugPrint("index: $index");
-      // debugPrint(
-      //     "${quranInfo[index]["Number_Page"] <= page && page < quranInfo[index + 1]["Number_Page"]}");
       if (quranInfo[index]["Number_Page"] <= page &&
           page < quranInfo[index + 1]["Number_Page"]) {
         indexQuranInfo = index;
-        // debugPrint("indexQuranInfo 0: $indexQuranInfo");
         break;
       }
     }
-    debugPrint("indexQuranInfo: $indexQuranInfo");
-    debugPrint("page: $page");
+
     emit(ChangePageState());
   }
 

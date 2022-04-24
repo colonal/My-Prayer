@@ -30,7 +30,8 @@ class AyahCubit extends Cubit<AyahState> {
   Future<void> readJson() async {
     emit(AyahLodingState());
     getLanguage();
-    final String responsr = await rootBundle.loadString("assets/quran/q.json");
+    final String responsr =
+        await rootBundle.loadString("assets/quran/ayah.json");
     final data = await json.decode(responsr);
     for (var item in data) {
       ayahs.add(Ayah.fromJson(item));

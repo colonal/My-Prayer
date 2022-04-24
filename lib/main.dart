@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_prayer/business_logic/cubit/ayah_cubit.dart';
-import 'package:my_prayer/business_logic/cubit/qoran_cubit.dart';
+import 'package:my_prayer/business_logic/cubit/home_cubit.dart';
 import 'package:my_prayer/presentation/screen/home_screen.dart';
 import 'package:my_prayer/themes/app_thime.dart';
 
@@ -26,26 +26,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My Prayer',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
-      themeMode: ThemeMode.dark,
-      scrollBehavior: MyCustomScrollBehavior(),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider<TimePrayerCubit>(
-            lazy: false,
-            create: (context) =>
-                TimePrayerCubit(TimeRepository(PlacesWebServices()))
-                  ..emitTimePrayerCubit(),
-          ),
-          BlocProvider<AzkarCubit>(
-              create: (context) => AzkarCubit()..readJson()),
-          BlocProvider<AyahCubit>(create: (context) => AyahCubit()..readJson()),
-        ],
-        child: const HomeScreen(),
+    return BlocProvider(
+      create: (context) => HomeCubit(),
+      child: BlocConsumer<HomeCubit, HomeState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          HomeCubit cubit = HomeCubit.get(context);
+          return MaterialApp(
+            title: 'My Prayer',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: cubit.isDark ? ThemeMode.dark : ThemeMode.light,
+            scrollBehavior: MyCustomScrollBehavior(),
+            home: MultiBlocProvider(
+              providers: [
+                BlocProvider<TimePrayerCubit>(
+                  lazy: false,
+                  create: (context) =>
+                      TimePrayerCubit(TimeRepository(PlacesWebServices()))
+                        ..emitTimePrayerCubit(),
+                ),
+                BlocProvider<AzkarCubit>(
+                    create: (context) => AzkarCubit()..readJson()),
+                BlocProvider<AyahCubit>(
+                    create: (context) => AyahCubit()..readJson()),
+              ],
+              child: const HomeScreen(),
+            ),
+          );
+        },
       ),
     );
   }
