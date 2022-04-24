@@ -41,10 +41,6 @@ class MyApp extends StatelessWidget {
                 TimePrayerCubit(TimeRepository(PlacesWebServices()))
                   ..emitTimePrayerCubit(),
           ),
-          BlocProvider<QoranCubit>(
-            lazy: false,
-            create: (context) => QoranCubit()..readJson(),
-          ),
           BlocProvider<AzkarCubit>(
               create: (context) => AzkarCubit()..readJson()),
           BlocProvider<AyahCubit>(create: (context) => AyahCubit()..readJson()),

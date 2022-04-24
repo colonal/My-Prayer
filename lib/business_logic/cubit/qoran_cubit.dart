@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_prayer/constnats/language.dart';
 
 import '../../constnats/quran.dart';
 import '../../data/models/qoran.dart';
@@ -32,6 +33,7 @@ class QoranCubit extends Cubit<QoranState> {
   bool showMenu = true;
   int indexQuranInfo = 0;
   int? indexFavorite;
+  bool isEn = false;
 
   void getFavorite() {
     indexFavorite = CacheHelper.getData(key: 'favoriteQuran');
@@ -80,5 +82,10 @@ class QoranCubit extends Cubit<QoranState> {
     debugPrint("indexQuranInfo: $indexQuranInfo");
     debugPrint("page: $page");
     emit(ChangePageState());
+  }
+
+  String? getText(String text) {
+    if (isEn == true) return textsEn[text];
+    return textsAr[text];
   }
 }

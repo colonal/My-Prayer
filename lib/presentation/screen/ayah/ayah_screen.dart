@@ -201,20 +201,6 @@ class _AyahScreenState extends State<AyahScreen> {
                                       ],
                                     ),
                                   ),
-                                  // Container(
-                                  //   width: 50,
-                                  //   height: 50,
-                                  //   alignment: Alignment.center,
-                                  //   color: Theme.of(context).backgroundColor,
-                                  //   child: Text(
-                                  //     quranInfo[index]["Number_Page"]
-                                  //         .toString(),
-                                  //     style: TextStyle(
-                                  //         color: Theme.of(context)
-                                  //             .primaryColorDark,
-                                  //         fontSize: 18),
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             ),

@@ -22,7 +22,12 @@ Map<String, String> textsAr = {
   "Favorite": "المفضل",
   "verses": "آياتها",
   "Azkar": "أذكار",
-  "Repetition": "Repetition",
+  "Repetition": "تكرار",
+  "saveMark": "حفظ علامة",
+  "GoToTag": "انتقال الى العلامة",
+  "Contents": "الفهرس",
+  "Pages": "الصفحات",
+  "SealPrayer": "دعاء الختم",
 };
 
 Map<String, String> textsEn = {
@@ -50,4 +55,9 @@ Map<String, String> textsEn = {
   "verses": "verses",
   "Azkar": "Azkar",
   "Repetition": "Repetition",
+  "saveMark": "Save Mark",
+  "GoToTag": "Go To Tag",
+  "Contents": "Contents",
+  "Pages": "Pages",
+  "SealPrayer": "Seal Prayer",
 };

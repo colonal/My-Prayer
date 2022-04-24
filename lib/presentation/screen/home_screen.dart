@@ -5,8 +5,6 @@ import 'package:my_prayer/business_logic/cubit/qoran_cubit.dart';
 import 'package:my_prayer/presentation/screen/Qoran/quran_screen.dart';
 import 'package:my_prayer/presentation/screen/ayah/ayah_screen.dart';
 import 'package:my_prayer/presentation/screen/azkar/azkar_screen.dart';
-import 'package:my_prayer/presentation/screen/Qoran/pdf_screen.dart';
-import 'package:my_prayer/presentation/screen/ayah/qoran_screen.dart';
 import '../../business_logic/cubit/ayah_cubit.dart';
 import '../widgets/show_data_time.dart';
 import './time_prayer/time_prayer_screen.dart';
@@ -100,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               themeData: themeData,
                               size: size,
                               text: "Ayah",
-                              image: "assets/images/qoran.png",
+                              image: "assets/images/ayah.png",
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (_) => BlocProvider<AyahCubit>(
@@ -117,19 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               image: "assets/images/qoran.png",
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => const PdfScreen(),
-                                ));
-                              }),
-                          buidGridItem(
-                              context: context,
-                              themeData: themeData,
-                              size: size,
-                              text: "Qoran",
-                              image: "assets/images/qoran.png",
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => BlocProvider.value(
-                                    value: QoranCubit()..getFavorite(),
+                                  builder: (_) => BlocProvider(
+                                    create: (_) => QoranCubit()..getFavorite(),
                                     child: const QuranScreen(),
                                   ),
                                 ));

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_prayer/business_logic/cubit/qoran_cubit.dart';
@@ -39,7 +37,7 @@ class _QuranScreenState extends State<QuranScreen> {
     return BlocConsumer<QoranCubit, QoranState>(
       listener: (context, state) {},
       builder: (context, state) {
-        print("state: $state");
+        print("${cubit.page} == ${cubit.indexFavorite}");
         return Scaffold(
           body: SafeArea(
               child: Container(
@@ -58,6 +56,18 @@ class _QuranScreenState extends State<QuranScreen> {
                     fit: BoxFit.fill,
                   ),
                 ),
+                Positioned(
+                    top: 0,
+                    left: size.width * 0.15,
+                    child: AnimatedOpacity(
+                      duration: const Duration(milliseconds: 500),
+                      opacity: cubit.page - 1 == cubit.indexFavorite ? 1 : 0,
+                      child: Image.asset(
+                        "assets/images/saveMark.png",
+                        width: 75,
+                        height: 150,
+                      ),
+                    )),
                 Positioned(
                   top: 0,
                   left: 0,
@@ -80,7 +90,10 @@ class _QuranScreenState extends State<QuranScreen> {
                               icon: const Icon(Icons.arrow_back_ios_new,
                                   color: Colors.white)),
                           Text(
-                            quranInfo[cubit.indexQuranInfo]["Name"],
+                            cubit.isEn
+                                ? quranInfo[cubit.indexQuranInfo]
+                                    ["English_Name"]
+                                : quranInfo[cubit.indexQuranInfo]["Name"],
                             style: const TextStyle(color: Colors.white),
                           ),
                           Text(
@@ -123,7 +136,8 @@ class _QuranScreenState extends State<QuranScreen> {
                                       children: [
                                         Expanded(
                                           child: newMethod(
-                                              text: "حفظ علامة",
+                                              text: cubit.getText("saveMark") ??
+                                                  "Save Mark",
                                               icon: Icons.bookmark_border_sharp,
                                               onTap: () {
                                                 cubit.saveFavorite();
@@ -132,7 +146,8 @@ class _QuranScreenState extends State<QuranScreen> {
                                         buildDivider1(isVertical: true),
                                         Expanded(
                                           child: newMethod(
-                                              text: "انتقال الى العلامة",
+                                              text: cubit.getText("GoToTag") ??
+                                                  "Go To Tag",
                                               icon: Icons.bookmark,
                                               onTap: () {
                                                 if (cubit.indexFavorite !=
@@ -157,7 +172,8 @@ class _QuranScreenState extends State<QuranScreen> {
                                       children: [
                                         Expanded(
                                           child: newMethod(
-                                              text: "الفهرس",
+                                              text: cubit.getText("Contents") ??
+                                                  "Contents",
                                               icon: Icons.menu_rounded,
                                               onTap: () async {
                                                 final index = await Navigator
@@ -174,7 +190,8 @@ class _QuranScreenState extends State<QuranScreen> {
                                         buildDivider1(isVertical: true),
                                         Expanded(
                                           child: newMethod(
-                                              text: "الصفحات",
+                                              text: cubit.getText("Pages") ??
+                                                  "Pages",
                                               icon: Icons.menu_book_sharp,
                                               onTap: () async {
                                                 final index = await Navigator
@@ -191,7 +208,8 @@ class _QuranScreenState extends State<QuranScreen> {
                                         buildDivider1(isVertical: true),
                                         Expanded(
                                           child: newMethod(
-                                            text: "دعاء الختم",
+                                            text: cubit.getText("SealPrayer") ??
+                                                "SealPrayer",
                                             image:
                                                 "assets/images/dua-hands.png",
                                             onTap: () => Navigator.of(context)

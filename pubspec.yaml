@@ -77,6 +77,8 @@ flutter:
     - assets/images/prayer.jpg
     - assets/images/prayer.png
     - assets/images/praying.png
+    - assets/images/ayah.png
+    - assets/images/saveMark.png
     - assets/quran/Quran.json
     - assets/quran/azkar.json
     - assets/quran/q.json
