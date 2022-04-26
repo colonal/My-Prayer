@@ -56,7 +56,7 @@ class _AyahScreenState extends State<AyahScreen> {
                       children: <Widget>[
                         ListTile(
                           title: Text(cubit.getText("Home") ?? "Home",
-                              style: Theme.of(context).textTheme.headline2),
+                              style: Theme.of(context).textTheme.headline3),
                           trailing: Icon(
                             Icons.home_filled,
                             color: Theme.of(context).cardColor,
@@ -70,7 +70,7 @@ class _AyahScreenState extends State<AyahScreen> {
                         ),
                         ListTile(
                           title: Text(cubit.getText("Bookmark") ?? "Bookmark",
-                              style: Theme.of(context).textTheme.headline2),
+                              style: Theme.of(context).textTheme.headline3),
                           trailing: Icon(
                             Icons.bookmark_outlined,
                             color: Theme.of(context).cardColor,
@@ -96,7 +96,7 @@ class _AyahScreenState extends State<AyahScreen> {
                         ),
                         ListTile(
                           title: Text(cubit.getText("Favorite") ?? "Favorite",
-                              style: Theme.of(context).textTheme.headline2),
+                              style: Theme.of(context).textTheme.headline3),
                           trailing: Icon(
                             Icons.favorite,
                             color: Theme.of(context).cardColor,
@@ -141,7 +141,9 @@ class _AyahScreenState extends State<AyahScreen> {
                                     ),
                                   ),
                                   Container(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.6),
                                     height: 50,
                                     width: 50,
                                     alignment: Alignment.center,
@@ -152,7 +154,9 @@ class _AyahScreenState extends State<AyahScreen> {
                                   ),
                                   Expanded(
                                       child: Container(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.6),
                                     height: 50,
                                     alignment: Alignment.center,
                                     child: Text(
@@ -167,7 +171,9 @@ class _AyahScreenState extends State<AyahScreen> {
                                     ),
                                   )),
                                   Container(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.6),
                                     height: 50,
                                     width: 50,
                                     padding: const EdgeInsets.only(right: 2),

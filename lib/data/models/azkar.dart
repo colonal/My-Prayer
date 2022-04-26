@@ -7,7 +7,7 @@ class Azkar {
   final String zekr;
   final String repetition;
   bool favorite;
-  int number = 0;
+  String number = "0";
 
   Azkar({
     required this.category,
@@ -17,6 +17,7 @@ class Azkar {
     required this.zekr,
     required this.id,
     required this.repetition,
+    required this.number,
     this.favorite = false,
   });
 
@@ -25,6 +26,7 @@ class Azkar {
       id: number,
       category: json["category"],
       count: json["count"],
+      number: json["count"],
       description: json["description"],
       reference: json["reference"],
       zekr: json["zekr"],

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../constnats/quran.dart';
 
 class PagesScreen extends StatefulWidget {
-  const PagesScreen({Key? key}) : super(key: key);
+  final bool isEn;
+  const PagesScreen({required this.isEn, Key? key}) : super(key: key);
 
   @override
   State<PagesScreen> createState() => _PagesScreenState();
@@ -57,7 +58,9 @@ class _PagesScreenState extends State<PagesScreen> {
                     height: 50,
                     alignment: Alignment.center,
                     child: Text(
-                      quranInfo[indexQuranInfo]["Name"].toString(),
+                      widget.isEn
+                          ? quranInfo[indexQuranInfo]["English_Name"].toString()
+                          : quranInfo[indexQuranInfo]["Name"].toString(),
                       style: TextStyle(
                           color: Theme.of(context).primaryColorDark,
                           fontSize: 18),

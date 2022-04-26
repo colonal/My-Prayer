@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(),
+      create: (context) => HomeCubit()..getData(),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
                   lazy: false,
                   create: (context) =>
                       TimePrayerCubit(TimeRepository(PlacesWebServices()))
+                        ..getLanguage()
                         ..emitTimePrayerCubit(),
                 ),
                 BlocProvider<AzkarCubit>(

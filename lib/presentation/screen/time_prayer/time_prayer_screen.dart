@@ -101,7 +101,10 @@ class _TimePrayerScreen1State extends State<TimePrayerScreen> {
             children: [
               Stack(
                 children: [
-                  ShowDataTime(cubit: cubit, size: size),
+                  ShowDataTime(
+                      cubit: cubit,
+                      size: size,
+                      name: cubit.getText(cubit.nexttime![0]) ?? ""),
                   Positioned(
                       top: 5,
                       left: 10,

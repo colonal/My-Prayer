@@ -24,7 +24,10 @@ class SettingScreen extends StatelessWidget {
               elevation: 0.0,
               toolbarHeight: 40,
               centerTitle: true,
-              title: TextResponsive(text: "Setting", maxSize: 20, size: size)
+              title: TextResponsive(
+                      text: cubit.getText("Settings") ?? "Settings",
+                      maxSize: 20,
+                      size: size)
                   .headline3(context),
               leading: IconButtonResponsive(
                 icons: cubit.isEn
@@ -44,13 +47,18 @@ class SettingScreen extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        TextResponsive(text: "Mode", maxSize: 30, size: size)
+                        TextResponsive(
+                                text: cubit.isDark
+                                    ? cubit.getText("lightMode") ?? "Light Mode"
+                                    : cubit.getText("darkMode") ?? "Dark Mode",
+                                maxSize: 30,
+                                size: size)
                             .headline3(context, bold: true),
                         const Spacer(),
                         Image.asset(
                           "assets/images/mode.gif",
-                          width: 60,
-                          height: 60,
+                          width: 50,
+                          height: 50,
                         ),
                       ],
                     ),
@@ -66,12 +74,14 @@ class SettingScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         TextResponsive(
-                                text: "Language", maxSize: 30, size: size)
+                                text: cubit.getText("language") ?? "Language",
+                                maxSize: 30,
+                                size: size)
                             .headline3(context, bold: true),
                         const Spacer(),
                         Image.asset(
                           "assets/images/language.png",
-                          width: 40,
+                          width: 50,
                           height: 50,
                         ),
                       ],

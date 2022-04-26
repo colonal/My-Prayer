@@ -28,6 +28,13 @@ Map<String, String> textsAr = {
   "Contents": "الفهرس",
   "Pages": "الصفحات",
   "SealPrayer": "دعاء الختم",
+  "TimePrayer": "وقت الصلاة",
+  "Ayah": "آيات",
+  "Quran": "القرآن",
+  "Settings": "إعدادات",
+  "darkMode": "الوضع المظلم",
+  "lightMode": "وضع الضوء",
+  "language": "اللغة الإنجليزية"
 };
 
 Map<String, String> textsEn = {
@@ -60,4 +67,11 @@ Map<String, String> textsEn = {
   "Contents": "Contents",
   "Pages": "Pages",
   "SealPrayer": "Seal Prayer",
+  "TimePrayer": "Time Prayer",
+  "Ayah": "Ayah",
+  "Quran": "Qoran",
+  "Settings": "Settings",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode",
+  "language": "language Arabic"
 };

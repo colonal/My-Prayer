@@ -19,6 +19,10 @@ class AzkarCubit extends Cubit<AzkarState> {
 
   bool isEn = false;
 
+  void getLanguage() {
+    isEn = CacheHelper.getData(key: "Language") ?? false;
+  }
+
   Future<void> readJson() async {
     print("readJson");
     emit(AzkarLodingState());
@@ -84,10 +88,11 @@ class AzkarCubit extends Cubit<AzkarState> {
   }
 
   void changeCount(Azkar azkar) {
-    int count = int.parse(azkar.count);
-
-    count = count == 0 ? 0 : --count;
-    azkar.count = count.toString();
-    emit(ChangeCountState());
+    try {
+      int count = int.parse(azkar.count);
+      count = count == 0 ? int.parse(azkar.number) : --count;
+      azkar.count = count.toString();
+      emit(ChangeCountState());
+    } catch (_) {}
   }
 }

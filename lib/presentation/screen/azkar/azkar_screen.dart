@@ -33,28 +33,29 @@ class _AzkarScreenState extends State<AzkarScreen> {
         if (state is AzkarLodingState) {
           return LoadingScreen(text: cubit.getText("Loading") ?? "Loading");
         }
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-            toolbarHeight: 40,
-            centerTitle: true,
-            title: TextResponsive(
-                    text: cubit.getText("Azkar") ?? "Azkar",
-                    maxSize: 20,
-                    size: size)
-                .headline3(context),
-            leading: IconButtonResponsive(
-              icons: Icons.arrow_back_ios_new_outlined,
-              size: size,
-              onPressed: () => Navigator.of(context).pop(),
+        return Directionality(
+          textDirection: cubit.isEn ? TextDirection.ltr : TextDirection.rtl,
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+              toolbarHeight: 40,
+              centerTitle: true,
+              title: TextResponsive(
+                      text: cubit.getText("Azkar") ?? "Azkar",
+                      maxSize: 20,
+                      size: size)
+                  .headline3(context),
+              leading: IconButtonResponsive(
+                icons: cubit.isEn
+                    ? Icons.arrow_back_ios_rounded
+                    : Icons.arrow_back_ios_rounded,
+                size: size,
+                onPressed: () => Navigator.of(context).pop(),
+              ),
             ),
-          ),
-          body: SingleChildScrollView(
-            child: SafeArea(
-              child: Directionality(
-                textDirection:
-                    cubit.isEn ? TextDirection.ltr : TextDirection.rtl,
+            body: SingleChildScrollView(
+              child: SafeArea(
                 child: SizedBox(
                   width: double.infinity,
                   child: Column(

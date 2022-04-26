@@ -43,7 +43,8 @@ class TextResponsive {
     );
   }
 
-  Widget headline3(context, {bool bold = false, Color? color, int maxLines = 2}) {
+  Widget headline3(context,
+      {bool bold = false, Color? color, int maxLines = 2}) {
     return FittedBox(
       fit: BoxFit.cover,
       child: Text(
@@ -55,6 +56,34 @@ class TextResponsive {
               fontSize: size.width > 480
                   ? maxSize
                   : size.width > 250
+                      ? size.width * 0.040
+                      : size.width * 0.04,
+              color: color,
+            ),
+      ),
+    );
+  }
+
+  Widget headline4(context,
+      {bool bold = false, Color? color, int maxLines = 2}) {
+    print(
+      size.width > 250
+          ? maxSize
+          : size.width > 100
+              ? size.width * 0.040
+              : size.width * 0.04,
+    );
+    return FittedBox(
+      fit: BoxFit.cover,
+      child: Text(
+        text,
+        maxLines: maxLines,
+        overflow: TextOverflow.ellipsis,
+        style: Theme.of(context).textTheme.headline3!.copyWith(
+              fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+              fontSize: size.width > 250
+                  ? maxSize
+                  : size.width > 100
                       ? size.width * 0.040
                       : size.width * 0.04,
               color: color,

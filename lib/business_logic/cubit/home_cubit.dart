@@ -19,6 +19,11 @@ class HomeCubit extends Cubit<HomeState> {
     return textsAr[text];
   }
 
+  void getData() {
+    getMode();
+    getLanguage();
+  }
+
   void getLanguage() {
     isEn = CacheHelper.getData(key: "Language") ?? false;
     emit(GetLanguageState());

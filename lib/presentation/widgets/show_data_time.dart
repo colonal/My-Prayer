@@ -7,7 +7,9 @@ import 'timer_widgit.dart';
 class ShowDataTime extends StatelessWidget {
   final TimePrayerCubit cubit;
   final Size size;
-  const ShowDataTime({required this.cubit, required this.size, Key? key})
+  final String name;
+  const ShowDataTime(
+      {required this.cubit, required this.size, required this.name, Key? key})
       : super(key: key);
 
   @override
@@ -23,10 +25,7 @@ class ShowDataTime extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextResponsive(
-                  text: cubit.getText(cubit.nexttime![0]) ?? "",
-                  maxSize: 20,
-                  size: size)
+          TextResponsive(text: name, maxSize: 20, size: size)
               .headline2(context),
           SizedBox(height: size.height > 435 ? 5 : 0),
           TextResponsive(text: cubit.nexttime![1], maxSize: 60, size: size)

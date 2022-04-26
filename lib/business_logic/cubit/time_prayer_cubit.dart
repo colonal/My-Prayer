@@ -15,6 +15,7 @@ import 'package:my_prayer/helpers/location_helper.dart';
 import '../../data/models/times_prayers.dart';
 import '../../data/repository/time_prayer_repo.dart';
 import '../../data/wepservices/time_prayer_services.dart';
+import '../../helpers/cache_helper.dart';
 import '../../helpers/contato_dao.dart';
 
 part 'time_prayer_state.dart';
@@ -55,6 +56,10 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     11: "Nov",
     12: "Dec"
   };
+
+  void getLanguage() {
+    isEn = CacheHelper.getData(key: "Language") ?? false;
+  }
 
   void showInfo() {
     isHowInfo = !isHowInfo;
@@ -109,7 +114,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     print("timeDay: $timeDay");
     bool check = false;
     // TODO timeDay!.timingsJson["Fajr"] = "21:42";
-    timeDay!.timingsJson["Fajr"] = "4:55";
+    // timeDay!.timingsJson["Fajr"] = "4:55";
     timeDay!.timingsJson.forEach((key, value) {
       print("t.hour: ${t.hour}");
       if (((t.hour < int.parse(value.toString().split(":")[0])) ||

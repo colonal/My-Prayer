@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_prayer/constnats/quran.dart';
 
 class ContentsScreen extends StatelessWidget {
-  const ContentsScreen({Key? key}) : super(key: key);
+  final bool isEn;
+  const ContentsScreen({required this.isEn, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,9 @@ class ContentsScreen extends StatelessWidget {
                   height: 50,
                   alignment: Alignment.center,
                   child: Text(
-                    quranInfo[index]["Name"].toString(),
+                    isEn
+                        ? quranInfo[index]["English_Name"].toString()
+                        : quranInfo[index]["Name"].toString(),
                     style: TextStyle(
                         color: Theme.of(context).primaryColorDark,
                         fontSize: 18),

@@ -23,6 +23,10 @@ class QoranCubit extends Cubit<QoranState> {
   int? indexFavorite;
   bool isEn = false;
 
+  void getLanguage() {
+    isEn = CacheHelper.getData(key: "Language") ?? false;
+  }
+
   void getFavorite() {
     indexFavorite = CacheHelper.getData(key: 'favoriteQuran');
   }
@@ -43,7 +47,7 @@ class QoranCubit extends Cubit<QoranState> {
     emit(ChangeShowMenuState());
 
     Future.delayed(
-      const Duration(milliseconds: 400),
+      const Duration(milliseconds: 500),
       () {
         showMenu = !showMenu;
         emit(ChangeShowMenuState());
