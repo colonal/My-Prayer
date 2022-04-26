@@ -65,6 +65,7 @@ class ConnectionSQLiteService {
     String databasePath = await databaseFactory.getDatabasesPath();
 
     String path = join(databasePath, databaseName);
+    print("path: $path");
     _db ??= await databaseFactory.openDatabase(path,
         options:
             OpenDatabaseOptions(onCreate: _onCreate, version: databaseVersion));

@@ -35,6 +35,19 @@ class TimeRepository {
             "month": {
               "number": value["month"],
             },
+          },
+          "hijri": {
+            "date": value["HijriDate"],
+            "day": value["HijriDay"],
+            "month": {
+              "number": int.tryParse(value["monthNumber"]) ?? -1,
+              "en": value["monthEn"],
+              "ar": value["monthAr"],
+            },
+            "weekday": {
+              "en": value["weekdayEn"],
+              "ar": value["weekdayAr"],
+            },
           }
         },
         "meta": {
@@ -46,7 +59,7 @@ class TimeRepository {
           },
         },
       };
-      print("\ndate: ${value["date"]}");
+      // print("\ndate: ${value["date"]}");
       return TimesPrayers.fromJson(value as Map<String, dynamic>);
     }).toList();
   }

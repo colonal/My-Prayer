@@ -17,7 +17,9 @@ class ContatoDAO {
       await db
           .rawInsert(ConnectionSQL.insertPrayer(timesPrayers: timesPrayers));
     } catch (error) {
+      print(("=" * 10) + "error" + "=" * 10);
       print("error insert: $error");
+      print(("=" * 10) + "error" + "=" * 10);
     }
   }
 

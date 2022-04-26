@@ -168,7 +168,7 @@ class _TimePrayerScreen1State extends State<TimePrayerScreen> {
                                               context,
                                               cubit.getText("Country") ??
                                                   "Country",
-                                              cubit.myCountry,
+                                              cubit.myCountry!,
                                               size,
                                               cubit,
                                             ),
@@ -176,7 +176,7 @@ class _TimePrayerScreen1State extends State<TimePrayerScreen> {
                                             buildPrayer(
                                               context,
                                               cubit.getText("City") ?? "City",
-                                              cubit.myCity,
+                                              cubit.myCity!,
                                               size,
                                               cubit,
                                             ),

@@ -37,8 +37,8 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
   TimesPrayers? timeDay;
   int index = 0;
   bool isEn = false;
-  late String myCountry = "Jordan";
-  late String myCity = "Irbid";
+  String? myCountry;
+  String? myCity;
   bool isHowInfo = false;
   PlacesWebServices placesWebServices = PlacesWebServices();
 
@@ -64,6 +64,50 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
   void showInfo() {
     isHowInfo = !isHowInfo;
     emit(ShowInfoState());
+  }
+
+  void emitTimePrayerCubit1({String? city, String? country}) async {
+    lodingTimePrayer = true;
+    emit(EmitTimePrayerLodingState());
+    bool inData = await selectAll();
+    if (inData) {
+      try {
+        print("Is Data");
+        lodingTimePrayer = false;
+        emit(EmitTimePrayerState());
+      } catch (_) {
+        print("Is Not Data");
+        getDataApi(city: city, country: country);
+      }
+    } else {
+      print("Is Not Data1");
+      getDataApi(city: city, country: country);
+    }
+  }
+
+  void getDataApi({String? city, String? country}) async {
+    isOnline = await hasNetwork();
+    bool isLocation = true;
+    if (isOnline) {
+      print("Online");
+      try {
+        await getLocation(city: city, country: country)
+            .onError((error, stackTrace) {
+          emit(UserLocationError());
+          isLocation = false;
+        });
+        if (!isLocation) return;
+        final times = await runApi();
+        timePrayers = await timeRepository.getTimesPrayers(times);
+        insertData(items: timePrayers);
+        nextTimePrayer();
+        lodingTimePrayer = false;
+        emit(EmitTimePrayerState());
+      } catch (E) {
+        print("Is On Line Error: $E");
+        emit(NatNetworkState());
+      }
+    }
   }
 
   void emitTimePrayerCubit({String? city, String? country}) async {
@@ -280,8 +324,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
         myCity = first.administrativeArea;
       } catch (e) {
         print("Error location: $e");
-        emit(UserLocationError());
-        return;
+        throw ("Erroe Location");
       }
     } else {
       myCountry = country;
@@ -290,7 +333,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
   }
 
   Future<List<dynamic>> runApi() async {
-    return await placesWebServices.frtchSuggestion(myCity, myCountry);
+    return await placesWebServices.frtchSuggestion(myCity!, myCountry!);
   }
 
   Future<bool> hasNetwork() async {

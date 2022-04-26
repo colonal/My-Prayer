@@ -9,7 +9,6 @@
 #include <connectivity_plus_windows/connectivity_plus_windows_plugin.h>
 #include <geolocator_windows/geolocator_windows.h>
 #include <network_info_plus_windows/network_info_plus_windows_plugin.h>
-#include <syncfusion_pdfviewer_windows/syncfusion_pdfviewer_windows_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   ConnectivityPlusWindowsPluginRegisterWithRegistrar(
@@ -18,6 +17,4 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("GeolocatorWindows"));
   NetworkInfoPlusWindowsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("NetworkInfoPlusWindowsPlugin"));
-  SyncfusionPdfviewerWindowsPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("SyncfusionPdfviewerWindowsPlugin"));
 }

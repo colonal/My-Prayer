@@ -42,8 +42,8 @@ class AyahCubit extends Cubit<AyahState> {
   }
 
   void getBookmark() {
-    indexSurah = CacheHelper.getData(key: "indexSurah");
-    indexAyah = CacheHelper.getData(key: "indexAyah");
+    indexSurah = CacheHelper.getData(key: "indexSurah") ?? -1;
+    indexAyah = CacheHelper.getData(key: "indexAyah") ?? -1;
   }
 
   void getLanguage() {
