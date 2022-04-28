@@ -23,6 +23,7 @@ class PlacesWebServices {
         "city": city,
         "country": country,
         "method": 1,
+        "month": DateTime.now().month,
       });
       // print("Data: ${response.data["predictions"]}");
       print("statusCode: ${response.statusCode}");

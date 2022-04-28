@@ -21,7 +21,7 @@ class ConnectionSQLiteService {
   /* ============================================= */
 
   static const databaseName = 'prayer.db';
-  static const databaseVersion = 1;
+  static const databaseVersion = 2;
   Database? _db;
 
   Future<Database> get db => _openDatabase();
@@ -41,6 +41,7 @@ class ConnectionSQLiteService {
   }
 
   FutureOr<void> _onCreate(Database db, int version) {
+    print("createDatabase");
     db.transaction((reference) async {
       reference.execute(ConnectionSQL.createDatabase);
     });
@@ -65,10 +66,20 @@ class ConnectionSQLiteService {
     String databasePath = await databaseFactory.getDatabasesPath();
 
     String path = join(databasePath, databaseName);
-    print("path: $path");
-    _db ??= await databaseFactory.openDatabase(path,
-        options:
-            OpenDatabaseOptions(onCreate: _onCreate, version: databaseVersion));
+    // print("_db!.getVersion():");
+    // print("_db!.getVersion(): ${_db!.getVersion()}");
+    print("path1: $path \n_db:${_db == null}");
+
+    try {
+      _db ??= await databaseFactory.openDatabase(path,
+          options: OpenDatabaseOptions(
+              onCreate: _onCreate, version: databaseVersion));
+    } catch (e) {
+      print("ERE: $e");
+    }
+
+    // await _db!.execute("DROP TABLE prayer;");
+    // _onCreate(_db!, databaseVersion);
     return _db!;
   }
 }

@@ -38,7 +38,7 @@ class NatNatworckScreen extends StatelessWidget {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    cubit.emitTimePrayerCubit();
+                    cubit.emitTimePrayerCubit1();
                   },
                   child:
                       TextResponsive(text: "Try Again", maxSize: 20, size: size)

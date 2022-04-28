@@ -2,7 +2,7 @@ import '../data/models/times_prayers.dart';
 
 class ConnectionSQL {
   static const createDatabase = '''
-  CREATE TABLE "prayer" (
+  CREATE TABLE IF NOT EXISTS "prayer" (
     `Fajr`	TEXT,
     `Sunrise`	TEXT,
     `Dhuhr`	TEXT,
@@ -46,8 +46,8 @@ class ConnectionSQL {
     '${timesPrayers.hijri.monthNumber.toString()}',
     '${timesPrayers.hijri.monthEn}',
     '${timesPrayers.hijri.monthAr}',
-    "${timesPrayers.hijri.weekdayEn}",
-    '${timesPrayers.hijri.weekdayAr}',
+    '${timesPrayers.hijri.weekdayEn.replaceAll("'", "")}',
+    '${timesPrayers.hijri.weekdayAr.replaceAll("'", "")}',
     '${timesPrayers.hijri.day}',
     '${timesPrayers.hijri.date}',
     '${timesPrayers.meta.latitudeAdjustmentMethod}');
@@ -58,3 +58,11 @@ class ConnectionSQL {
     return 'delete from prayer;';
   }
 }
+//monthNumber,monthEn,monthAr,weekdayEn,weekdayAr,HijriDay,HijriDate,
+// '${timesPrayers.hijri.monthNumber.toString()}',
+//     "${timesPrayers.hijri.monthEn}",
+//     "${timesPrayers.hijri.monthAr}",
+//     "${timesPrayers.hijri.weekdayEn}",
+//     "${timesPrayers.hijri.weekdayAr}",
+//     "${timesPrayers.hijri.day}",
+//     "${timesPrayers.hijri.date}",

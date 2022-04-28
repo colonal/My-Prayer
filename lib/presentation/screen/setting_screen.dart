@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_prayer/business_logic/cubit/home_cubit.dart';
 import 'package:my_prayer/presentation/widgets/my_divider.dart';
 
+import '../../business_logic/cubit/time_prayer_cubit.dart';
 import '../widgets/icon_button_responsive.dart';
 import '../widgets/text_responsive.dart';
 
 class SettingScreen extends StatelessWidget {
-  const SettingScreen({Key? key}) : super(key: key);
+  final TimePrayerCubit cubitTime;
+  const SettingScreen({required this.cubitTime, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +83,31 @@ class SettingScreen extends StatelessWidget {
                         const Spacer(),
                         Image.asset(
                           "assets/images/language.png",
+                          width: 50,
+                          height: 50,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                    child: buildDivider1(),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      cubitTime.emitTimePrayerCubit1();
+                    },
+                    child: Row(
+                      children: [
+                        TextResponsive(
+                                text: cubit.getText("updateLocation") ??
+                                    "Update Location",
+                                maxSize: 30,
+                                size: size)
+                            .headline3(context, bold: true),
+                        const Spacer(),
+                        Image.asset(
+                          "assets/images/location.gif",
                           width: 50,
                           height: 50,
                         ),

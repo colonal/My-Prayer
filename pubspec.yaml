@@ -80,6 +80,7 @@ flutter:
     - assets/images/saveMark.png
     - assets/images/setting.png
     - assets/images/mode.gif
+    - assets/images/location.gif
     - assets/images/language.png
     - assets/quran/azkar.json
     - assets/quran/ayah.json

@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   onSubmit: () {
                     if (_country.isNotEmpty && _state.isNotEmpty) {
-                      cubit.emitTimePrayerCubit(
+                      cubit.emitTimePrayerCubit1(
                           country: _country.split("    ")[1],
                           city: _state.split(" ")[0]);
                     }
@@ -170,7 +170,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   onTap: () {
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
-                                      builder: (_) => const SettingScreen(),
+                                      builder: (_) =>
+                                          SettingScreen(cubitTime: cubit),
                                     ));
                                   }),
                             ],

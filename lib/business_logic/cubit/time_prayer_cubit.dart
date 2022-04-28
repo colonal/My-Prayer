@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -110,40 +109,6 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     }
   }
 
-  void emitTimePrayerCubit({String? city, String? country}) async {
-    lodingTimePrayer = true;
-    emit(EmitTimePrayerLodingState());
-    isOnline = await hasNetwork();
-    print("isOnline: $isOnline");
-    if (isOnline) {
-      print("Is On Line");
-      try {
-        await getLocation(city: city, country: country);
-        final times = await runApi();
-        timePrayers = await timeRepository.getTimesPrayers(times);
-        insertData(items: timePrayers);
-        nextTimePrayer();
-        lodingTimePrayer = false;
-        emit(EmitTimePrayerState());
-      } catch (E) {
-        print("Is On Line Error: $E");
-        selectAll();
-        return;
-      }
-    } else {
-      print("Is OffLine");
-      bool inData = await selectAll();
-      if (inData) {
-        print("Is Data");
-        lodingTimePrayer = false;
-        emit(EmitTimePrayerState());
-      } else {
-        print("Is Not Data");
-        emit(NatNetworkState());
-      }
-    }
-  }
-
   void nextTimePrayer() {
     var t = TimeOfDay.now();
 
@@ -210,23 +175,6 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     emit(DufrantTimeState());
   }
 
-  void dufrantTime() {
-    print("dufrantTime");
-    time = Timer.periodic(const Duration(seconds: 1), (timer) {
-      var to = (DateFormat('dd MMM yyyy HH:mm')
-          .parse("${nexttime![3]} " + nexttime![2]));
-      var from = DateTime.now();
-
-      nexttime![4] = to.difference(from).toString();
-      Duration v = to.difference(from);
-
-      if (v.inSeconds == 0) {
-        cancelTimer();
-        nextTimePrayer();
-      }
-    });
-  }
-
   void cancelTimer() {
     if (time != null) {
       time!.cancel();
@@ -278,41 +226,6 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
       await _contatoDAO.insert(
         timesPrayers: item,
       );
-    }
-  }
-
-  void checkViweScreen({String? city, String? country}) async {
-    lodingTimePrayer = true;
-    emit(EmitTimePrayerLodingState());
-    if (isOnline) {
-      try {
-        await getLocation(city: city, country: country);
-        final times = await runApi();
-        timePrayers = await timeRepository.getTimesPrayers(times);
-        insertData(items: timePrayers);
-        nextTimePrayer();
-        lodingTimePrayer = false;
-        emit(EmitTimePrayerState());
-      } catch (_) {
-        bool inData = await selectAll();
-        print("inData 1 : $inData");
-        if (inData) {
-          lodingTimePrayer = false;
-          emit(EmitTimePrayerState());
-        } else {
-          emit(NatNetworkState());
-        }
-        return;
-      }
-    } else {
-      bool inData = await selectAll();
-      print("inData 2 : $inData");
-      if (inData) {
-        lodingTimePrayer = false;
-        emit(EmitTimePrayerState());
-      } else {
-        emit(NatNetworkState());
-      }
     }
   }
 
