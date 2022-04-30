@@ -95,7 +95,8 @@ class SettingScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      cubitTime.emitTimePrayerCubit1();
+                      Navigator.of(context).pop();
+                      cubitTime.emitTimePrayerCubit1(update: false);
                     },
                     child: Row(
                       children: [

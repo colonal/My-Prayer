@@ -65,11 +65,12 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     emit(ShowInfoState());
   }
 
-  void emitTimePrayerCubit1({String? city, String? country}) async {
+  void emitTimePrayerCubit1(
+      {String? city, String? country, bool update = true}) async {
     lodingTimePrayer = true;
     emit(EmitTimePrayerLodingState());
     bool inData = await selectAll();
-    if (inData) {
+    if (inData && update) {
       try {
         print("Is Data");
         lodingTimePrayer = false;
@@ -206,6 +207,8 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
             (DateTime.now().month)) {
           print("XxXx");
           nextTimePrayer();
+          myCity = timePrayers[0].meta.timezone.split("/")[1];
+          myCountry = timePrayers[0].meta.timezone.split("/")[0];
           return true;
         }
         return false;

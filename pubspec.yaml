@@ -43,6 +43,8 @@ dependencies:
   intl: ^0.17.0
   location: ^4.3.0
   scrollable_positioned_list: ^0.2.3
+  share_plus: ^4.0.4
+  share_plus_windows: ^3.0.0
   shared_preferences: ^2.0.13
   sqflite: ^2.0.0+3
   sqflite_common_ffi: ^2.0.0+1

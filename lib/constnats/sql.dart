@@ -58,11 +58,3 @@ class ConnectionSQL {
     return 'delete from prayer;';
   }
 }
-//monthNumber,monthEn,monthAr,weekdayEn,weekdayAr,HijriDay,HijriDate,
-// '${timesPrayers.hijri.monthNumber.toString()}',
-//     "${timesPrayers.hijri.monthEn}",
-//     "${timesPrayers.hijri.monthAr}",
-//     "${timesPrayers.hijri.weekdayEn}",
-//     "${timesPrayers.hijri.weekdayAr}",
-//     "${timesPrayers.hijri.day}",
-//     "${timesPrayers.hijri.date}",

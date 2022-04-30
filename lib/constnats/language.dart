@@ -34,7 +34,8 @@ Map<String, String> textsAr = {
   "Settings": "إعدادات",
   "darkMode": "الوضع المظلم",
   "lightMode": "وضع الضوء",
-  "language": "اللغة الإنجليزية"
+  "language": "اللغة الإنجليزية",
+  "updateLocation": "تحديث الموقع",
 };
 
 Map<String, String> textsEn = {
@@ -73,5 +74,6 @@ Map<String, String> textsEn = {
   "Settings": "Settings",
   "darkMode": "Dark Mode",
   "lightMode": "Light Mode",
-  "language": "language Arabic"
+  "language": "language Arabic",
+  "updateLocation": "Update Location",
 };

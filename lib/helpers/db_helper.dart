@@ -26,22 +26,7 @@ class ConnectionSQLiteService {
 
   Future<Database> get db => _openDatabase();
 
-  Future<Database> c() async {
-    sqfliteFfiInit();
-    String databasePath = await databaseFactoryFfi.getDatabasesPath();
-
-    String path = join(databasePath, databaseName);
-    Directory(databasePath).create(recursive: true);
-    DatabaseFactory databaseFactory = databaseFactoryFfi;
-
-    _db ??= await databaseFactory.openDatabase(path,
-        options:
-            OpenDatabaseOptions(onCreate: _onCreate, version: databaseVersion));
-    return _db!;
-  }
-
   FutureOr<void> _onCreate(Database db, int version) {
-    print("createDatabase");
     db.transaction((reference) async {
       reference.execute(ConnectionSQL.createDatabase);
     });
@@ -66,20 +51,12 @@ class ConnectionSQLiteService {
     String databasePath = await databaseFactory.getDatabasesPath();
 
     String path = join(databasePath, databaseName);
-    // print("_db!.getVersion():");
-    // print("_db!.getVersion(): ${_db!.getVersion()}");
-    print("path1: $path \n_db:${_db == null}");
 
     try {
       _db ??= await databaseFactory.openDatabase(path,
           options: OpenDatabaseOptions(
               onCreate: _onCreate, version: databaseVersion));
-    } catch (e) {
-      print("ERE: $e");
-    }
-
-    // await _db!.execute("DROP TABLE prayer;");
-    // _onCreate(_db!, databaseVersion);
+    } catch (_) {}
     return _db!;
   }
 }
