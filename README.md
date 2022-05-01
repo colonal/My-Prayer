@@ -1,16 +1,42 @@
-# my_prayer
+<div align="center">
 
-A new Flutter project.
+<img src="assets\icon\icon.png" alt='My Prayer logo' height="200em"/>
 
-## Getting Started
+# My Prayer
 
-This project is a starting point for a Flutter application.
+  
+This is an application to display the Quran, prayer times and remembrances
 
-A few resources to get you started if this is your first Flutter project:
+<div align="left">
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  ## Holy Quran <img src="assets/images/qoran.png" alt='Quran' height="30em"/>
+  * Bookmark
+  * Content
+  * SealPrayer
+  * Pages
+  
+  ## Ayahs <img src="assets/images/ayah.png" alt='Ayahs' height="30em"/>
+  * View separate verses 
+  * Search for verses 
+  * Add to favorites 
+  * Bookmark 
+  * Share with friends.
+  
+  ## Azkar <img src="assets/images/prayer.png" alt='Azkar' height="30em"/>
+  * Display categorized remembrances
+  * Calculate the number of repetitions
+  * Add to favorites
+  * Share with friends
+  
+  ## TimePrayer <img src="assets/images/pray.png" alt='TimePrayer' height="30em"/>
+  * View prayer times throughout the month
+  * Display of upcoming prayers and the time remaining for them
+  
+  #
+  ## Sorurces
+  * time prayer api: http://api.aladhan.com/v1/calendarByCity
+  * quran image: https://github.com/maknon/Quran
+  * quran json : https://raw.githubusercontent.com/risan/quran-json/main/dist/quran.json
+  * The Noble Quran is written without formation: http://www.islih.com/view/7505
+  * azkar json: https://github.com/osamayy/azkar-db/blob/master/azkar.json
+  
