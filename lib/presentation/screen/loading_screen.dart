@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_prayer/presentation/widgets/text_responsive.dart';
+import '../widgets/text_responsive.dart';
 
 class LoadingScreen extends StatelessWidget {
   final String text;

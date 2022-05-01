@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:my_prayer/data/models/azkar.dart';
+import '../../data/models/azkar.dart';
 
 import '../../constnats/language.dart';
 import '../../helpers/cache_helper.dart';

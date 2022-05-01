@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_prayer/business_logic/cubit/azkar_cubit.dart';
-import 'package:my_prayer/business_logic/cubit/qoran_cubit.dart';
-import 'package:my_prayer/presentation/screen/Qoran/quran_screen.dart';
-import 'package:my_prayer/presentation/screen/ayah/ayah_screen.dart';
-import 'package:my_prayer/presentation/screen/azkar/azkar_screen.dart';
-import 'package:my_prayer/presentation/screen/setting_screen.dart';
+import '../../business_logic/cubit/azkar_cubit.dart';
+import '../../business_logic/cubit/qoran_cubit.dart';
+import 'Qoran/quran_screen.dart';
+import 'ayah/ayah_screen.dart';
+import 'azkar/azkar_screen.dart';
+import 'setting_screen.dart';
 import '../../business_logic/cubit/ayah_cubit.dart';
 import '../../business_logic/cubit/home_cubit.dart';
 import '../widgets/show_data_time.dart';
-import './time_prayer/time_prayer_screen.dart';
+import 'time_prayer/time_prayer_screen.dart';
 
 import '../../business_logic/cubit/time_prayer_cubit.dart';
 import '../widgets/text_responsive.dart';
@@ -73,9 +73,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                     children: [
                       ShowDataTime(
-                          cubit: cubit,
-                          size: size,
-                          name: cubitHome.getText(cubit.nexttime![0]) ?? ""),
+                        cubit: cubit,
+                        size: size,
+                        name: cubitHome.getText(cubit.nexttime![0]) ?? "",
+                        isEn: cubitHome.isEn,
+                      ),
                       Expanded(
                         child: Container(
                           color: themeData.backgroundColor,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_prayer/presentation/screen/home_screen.dart';
+import '../screen/home_screen.dart';
 
 import '../../business_logic/cubit/ayah_cubit.dart';
 import '../../business_logic/cubit/azkar_cubit.dart';

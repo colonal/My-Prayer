@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_prayer/business_logic/cubit/qoran_cubit.dart';
+import '../../../business_logic/cubit/qoran_cubit.dart';
 
 import '../../../constnats/quran.dart';
 import '../../widgets/my_divider.dart';
@@ -108,9 +108,13 @@ class _QuranScreenState extends State<QuranScreen> {
                                   : quranInfo[cubit.indexQuranInfo]["Name"],
                               style: const TextStyle(color: Colors.white),
                             ),
-                            Text(
-                              cubit.page.toString(),
-                              style: const TextStyle(color: Colors.white),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Text(
+                                cubit.page.toString(),
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ),
                           ],
                         ),

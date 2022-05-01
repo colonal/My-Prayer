@@ -73,7 +73,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Container(color: Colors.black.withOpacity(0.1)),
           )),
           Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 50.0),
             child: Column(
               children: [
                 Expanded(
@@ -91,52 +91,53 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 data[index][0],
                               )),
                               Expanded(
+                                  flex: 2,
                                   child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    data[index][1],
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Text(
-                                    data[index][2],
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  if (data[index][1] == "Prayer Time")
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: const [
-                                        Icon(
-                                          Icons.warning_amber_rounded,
-                                          color: Colors.redAccent,
-                                          size: 40,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        data[index][1],
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        SizedBox(width: 20),
-                                        Expanded(
-                                          child: Text(
-                                            "Warning, the prayer time may be inaccurate",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20,
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Text(
+                                        data[index][2],
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      if (data[index][1] == "Prayer Time")
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: const [
+                                            Icon(
+                                              Icons.warning_amber_rounded,
+                                              color: Colors.redAccent,
+                                              size: 40,
                                             ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                ],
-                              )),
+                                            SizedBox(width: 20),
+                                            Expanded(
+                                              child: Text(
+                                                "Warning, the prayer time may be inaccurate",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                    ],
+                                  )),
                             ],
                           )),
                 ),

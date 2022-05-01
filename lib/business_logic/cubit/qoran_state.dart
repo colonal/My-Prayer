@@ -12,3 +12,5 @@ class GetQoranState extends QoranState {}
 class ChangeShowMenuState extends QoranState {}
 
 class ChangePageState extends QoranState {}
+
+class SaveFavoriteState extends QoranState {}

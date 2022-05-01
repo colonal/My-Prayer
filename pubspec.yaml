@@ -52,8 +52,18 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^1.0.0
+  flutter_launcher_icons: "^0.9.2"
+  flutter_app_name: ^0.1.0
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icon/icon.png"
+flutter_app_name:
+  name: "صلاتي"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -68,7 +78,6 @@ flutter:
   assets:
     - assets/images/noNetwork.gif
     - assets/images/backgound.png
-    - assets/images/backgound.svg
     - assets/images/loading.gif
     - assets/images/pray.png
     - assets/images/qoran.png
@@ -77,7 +86,6 @@ flutter:
     - assets/images/dua-hands.png
     - assets/images/prayer.jpg
     - assets/images/prayer.png
-    - assets/images/praying.png
     - assets/images/ayah.png
     - assets/images/saveMark.png
     - assets/images/setting.png

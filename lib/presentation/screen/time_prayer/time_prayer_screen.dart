@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:my_prayer/presentation/widgets/show_data_time.dart';
+import '../../widgets/show_data_time.dart';
 
 import '../../../business_logic/cubit/time_prayer_cubit.dart';
 
@@ -102,9 +102,12 @@ class _TimePrayerScreen1State extends State<TimePrayerScreen> {
               Stack(
                 children: [
                   ShowDataTime(
-                      cubit: cubit,
-                      size: size,
-                      name: cubit.getText(cubit.nexttime![0]) ?? ""),
+                    cubit: cubit,
+                    size: size,
+                    name: cubit.getText(cubit.nexttime![0]) ?? "",
+                    isEn: cubit.isEn,
+                    top: true,
+                  ),
                   Positioned(
                       top: 5,
                       left: 10,

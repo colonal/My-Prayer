@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:my_prayer/helpers/cache_helper.dart';
+import '../../helpers/cache_helper.dart';
 
 import '../../constnats/language.dart';
 import '../../data/models/ayah.dart';

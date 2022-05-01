@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_prayer/constnats/quran.dart';
+import '../../../constnats/quran.dart';
 
 class ContentsScreen extends StatelessWidget {
   final bool isEn;

@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_prayer/business_logic/cubit/ayah_cubit.dart';
-import 'package:my_prayer/presentation/screen/ayah/drawer_screen.dart';
-import 'package:my_prayer/presentation/screen/loading_screen.dart';
-import 'package:my_prayer/presentation/widgets/my_divider.dart';
+import '../../../business_logic/cubit/ayah_cubit.dart';
+import 'drawer_screen.dart';
+import '../loading_screen.dart';
+import '../../widgets/my_divider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -290,12 +290,12 @@ class _AyahScreenState extends State<AyahScreen> {
           const SizedBox(height: 10),
           Text(
             verses.text,
-            style: TextStyle(
-              fontSize: size.width * 0.05,
-              fontWeight: FontWeight.bold,
-              height: 2,
-            ),
             textDirection: TextDirection.rtl,
+            style: Theme.of(context).textTheme.headline3!.copyWith(
+                  fontSize: 20,
+                  height: 2,
+                ),
+            maxLines: 10,
           ),
         ],
       ),

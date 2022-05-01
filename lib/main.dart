@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:my_prayer/presentation/screen/onboarding_screen.dart';
-import 'package:my_prayer/presentation/widgets/build_material_app.dart';
+import 'presentation/screen/onboarding_screen.dart';
+import 'presentation/widgets/build_material_app.dart';
 
 import 'business_logic/cubit/time_prayer_cubit.dart';
 

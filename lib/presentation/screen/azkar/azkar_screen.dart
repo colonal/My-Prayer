@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_prayer/business_logic/cubit/azkar_cubit.dart';
-import 'package:my_prayer/presentation/screen/azkar/item_azkar_screen.dart';
-import 'package:my_prayer/presentation/widgets/my_divider.dart';
+import '../../../business_logic/cubit/azkar_cubit.dart';
+import 'item_azkar_screen.dart';
+import '../../widgets/my_divider.dart';
 
 import '../../widgets/icon_button_responsive.dart';
 import '../../widgets/text_responsive.dart';
@@ -91,7 +91,7 @@ class _AzkarScreenState extends State<AzkarScreen> {
                         itemCount: v.length,
                         separatorBuilder: (_, __) => buildDivider1(
                             color: Theme.of(context).primaryColorDark),
-                        itemBuilder: (_, index) => GestureDetector(
+                        itemBuilder: (_, index) => InkWell(
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -101,15 +101,15 @@ class _AzkarScreenState extends State<AzkarScreen> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextResponsive(
+                            child: SizedBox(
+                              width: size.width,
+                              child: Center(
+                                child: TextResponsive(
                                   text: v[index].toString(),
                                   size: size,
                                   maxSize: 20,
                                 ).headline3(context, bold: true),
-                              ],
+                              ),
                             ),
                           ),
                         ),

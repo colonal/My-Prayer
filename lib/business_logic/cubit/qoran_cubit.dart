@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_prayer/constnats/language.dart';
+import '../../constnats/language.dart';
 
 import '../../constnats/quran.dart';
 import '../../data/models/qoran.dart';
@@ -32,8 +32,9 @@ class QoranCubit extends Cubit<QoranState> {
   }
 
   void saveFavorite() {
-    indexFavorite = page;
-    CacheHelper.saveData(key: 'favoriteQuran', value: page);
+    indexFavorite = page - 1;
+    CacheHelper.saveData(key: 'favoriteQuran', value: page - 1);
+    emit(SaveFavoriteState());
   }
 
   void closeMenu() {

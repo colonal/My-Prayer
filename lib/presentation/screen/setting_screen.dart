@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_prayer/business_logic/cubit/home_cubit.dart';
-import 'package:my_prayer/presentation/widgets/my_divider.dart';
+import '../../business_logic/cubit/home_cubit.dart';
+import '../widgets/my_divider.dart';
 
 import '../../business_logic/cubit/time_prayer_cubit.dart';
 import '../widgets/icon_button_responsive.dart';

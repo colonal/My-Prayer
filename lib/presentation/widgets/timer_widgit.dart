@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import './text_responsive.dart';
+import 'text_responsive.dart';
 
 import '../../business_logic/cubit/time_prayer_cubit.dart';
 

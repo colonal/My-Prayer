@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_prayer/business_logic/cubit/azkar_cubit.dart';
-import 'package:my_prayer/data/models/azkar.dart';
-import 'package:my_prayer/presentation/widgets/icon_button_responsive.dart';
-import 'package:my_prayer/presentation/widgets/my_divider.dart';
-import 'package:my_prayer/presentation/widgets/text_responsive.dart';
+import '../../../business_logic/cubit/azkar_cubit.dart';
+import '../../../data/models/azkar.dart';
+import '../../widgets/icon_button_responsive.dart';
+import '../../widgets/my_divider.dart';
+import '../../widgets/text_responsive.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ItemAzkarScreen extends StatelessWidget {
@@ -92,6 +92,7 @@ class ItemAzkarScreen extends StatelessWidget {
                               InkWell(
                                 onTap: () {
                                   cubit.changeCount(azkars[index]);
+                                  SystemSound.play(SystemSoundType.click);
                                 },
                                 child: Text(
                                   azkars[index].zekr,
@@ -119,6 +120,8 @@ class ItemAzkarScreen extends StatelessWidget {
                                       child: InkWell(
                                         onTap: () {
                                           cubit.changeCount(azkars[index]);
+                                          SystemSound.play(
+                                              SystemSoundType.click);
                                         },
                                         child: Align(
                                           alignment:
