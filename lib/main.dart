@@ -6,6 +6,7 @@ import 'package:my_prayer/presentation/widgets/build_material_app.dart';
 
 import 'business_logic/cubit/time_prayer_cubit.dart';
 
+import 'custom_scroll_behavior.dart';
 import 'helpers/cache_helper.dart';
 
 void main() async {
@@ -25,8 +26,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return !onboarding
-        ? const MaterialApp(
-            home: OnboardingScreen(), debugShowCheckedModeBanner: false)
+        ? MaterialApp(
+            scrollBehavior: MyCustomScrollBehavior(),
+            home: const OnboardingScreen(),
+            debugShowCheckedModeBanner: false)
         : const BuildMaterialApp();
   }
 }

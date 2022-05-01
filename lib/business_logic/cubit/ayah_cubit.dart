@@ -19,9 +19,11 @@ class AyahCubit extends Cubit<AyahState> {
 
   List<Ayah> ayahs = [];
   List<dynamic> versesFavorite = [];
+  List<dynamic> ayahsSeash = [];
   List<int> indexFavorite = [];
 
   bool isFavorite = false;
+  bool isSearch = false;
   int indexPage = 0;
 
   int indexAyah = -1;
@@ -103,11 +105,34 @@ class AyahCubit extends Cubit<AyahState> {
 
   void changeIsFavorite() {
     isFavorite = !isFavorite;
+    isSearch = false;
     emit(ChangeIsFavoriteState());
   }
 
   String? getText(String text) {
     if (isEn == true) return textsEn[text];
     return textsAr[text];
+  }
+
+  void changeSeach() {
+    isSearch = !isSearch;
+    isFavorite = false;
+    emit(ChangeIsSeachState());
+  }
+
+  void search(String text) {
+    if (text.isNotEmpty) {
+      ayahsSeash.clear();
+      for (var items in ayahs) {
+        for (Verses item in items.verses) {
+          if (item.cleanText.contains(text)) {
+            ayahsSeash.add(item);
+          }
+        }
+      }
+      emit(ChangeIsSeachState());
+    }
+
+    // versesFavorite.add(verses);
   }
 }

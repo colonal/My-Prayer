@@ -1,9 +1,15 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_prayer/business_logic/cubit/ayah_cubit.dart';
+import 'package:my_prayer/presentation/screen/ayah/drawer_screen.dart';
 import 'package:my_prayer/presentation/screen/loading_screen.dart';
 import 'package:my_prayer/presentation/widgets/my_divider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../constnats/quran.dart';
 import '../../../data/models/ayah.dart';
@@ -23,6 +29,7 @@ class _AyahScreenState extends State<AyahScreen> {
   late ItemPositionsListener itemPositionsListener;
   late PageController pageController;
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+  late TextEditingController _controller;
   @override
   void initState() {
     super.initState();
@@ -30,6 +37,14 @@ class _AyahScreenState extends State<AyahScreen> {
       initialPage: 0,
       // keepPage: true,
     );
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -47,175 +62,41 @@ class _AyahScreenState extends State<AyahScreen> {
             textDirection: cubit.isEn ? TextDirection.ltr : TextDirection.rtl,
             child: Scaffold(
               key: _key,
-              drawer: Drawer(
-                backgroundColor: Theme.of(context).backgroundColor,
-                child: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Column(
-                      children: <Widget>[
-                        ListTile(
-                          title: Text(cubit.getText("Home") ?? "Home",
-                              style: Theme.of(context).textTheme.headline3),
-                          trailing: Icon(
-                            Icons.home_filled,
-                            color: Theme.of(context).cardColor,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pop();
-                            if (cubit.isFavorite) {
-                              cubit.changeIsFavorite();
-                            }
-                          },
-                        ),
-                        ListTile(
-                          title: Text(cubit.getText("Bookmark") ?? "Bookmark",
-                              style: Theme.of(context).textTheme.headline3),
-                          trailing: Icon(
-                            Icons.bookmark_outlined,
-                            color: Theme.of(context).cardColor,
-                          ),
-                          onTap: () async {
-                            Navigator.of(context).pop();
-                            pageController
-                                .animateToPage(
-                              cubit.indexSurah,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.linear,
-                            )
-                                .then((value) {
-                              if (itemScrollController.isAttached) {
-                                itemScrollController.scrollTo(
-                                    index: 3,
-                                    alignment: 0.5,
-                                    duration: const Duration(milliseconds: 300),
-                                    curve: Curves.easeInOutCubic);
-                              }
-                            });
-                          },
-                        ),
-                        ListTile(
-                          title: Text(cubit.getText("Favorite") ?? "Favorite",
-                              style: Theme.of(context).textTheme.headline3),
-                          trailing: Icon(
-                            Icons.favorite,
-                            color: Theme.of(context).cardColor,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pop();
-                            cubit.changeIsFavorite();
-                          },
-                        ),
-                        buildDivider1(),
-                        Flexible(
-                          child: ListView.separated(
-                            itemCount: quranInfo.length,
-                            separatorBuilder: (_, __) => Container(
-                              color: Colors.black,
-                              height: 1,
-                              width: double.infinity,
-                            ),
-                            itemBuilder: (context, index) => GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                                pageController.animateToPage(
-                                  quranInfo[index]["Number"] - 1,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.linear,
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 50,
-                                    height: 50,
-                                    color: Theme.of(context).backgroundColor,
-                                    alignment: Alignment.center,
-                                    padding: const EdgeInsets.all(5),
-                                    child: Text(
-                                      quranInfo[index]["Number"].toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .primaryColorDark,
-                                          fontSize: 18),
-                                    ),
-                                  ),
-                                  Container(
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.6),
-                                    height: 50,
-                                    width: 50,
-                                    alignment: Alignment.center,
-                                    child: Image.asset(
-                                        quranInfo[index]["Descent"] == "مدنية"
-                                            ? "assets/images/civil.webp"
-                                            : "assets/images/kaaba.png"),
-                                  ),
-                                  Expanded(
-                                      child: Container(
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.6),
-                                    height: 50,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      cubit.isEn
-                                          ? quranInfo[index]["English_Name"]
-                                              .toString()
-                                          : quranInfo[index]["Name"].toString(),
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .primaryColorDark,
-                                          fontSize: 18),
-                                    ),
-                                  )),
-                                  Container(
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.6),
-                                    height: 50,
-                                    width: 50,
-                                    padding: const EdgeInsets.only(right: 2),
-                                    alignment: Alignment.center,
-                                    child: Row(
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              cubit.getText("verses") ??
-                                                  "verses",
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColorDark,
-                                                  fontSize: 14),
-                                            ),
-                                            Text(
-                                              quranInfo[index]["Number_Verses"]
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColorDark,
-                                                  fontSize: 14),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              drawer: DrawerScreen(
+                cubit: cubit,
+                onTapBookmark: () async {
+                  Navigator.of(context).pop();
+                  if (cubit.isSearch) {
+                    cubit.changeSeach();
+                  }
+                  if (cubit.isFavorite) {
+                    cubit.changeIsFavorite();
+                  }
+                  await Future.delayed(const Duration(milliseconds: 500));
+                  pageController
+                      .animateToPage(
+                    cubit.indexSurah,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.linear,
+                  )
+                      .then((value) {
+                    if (itemScrollController.isAttached) {
+                      itemScrollController.scrollTo(
+                          index: 3,
+                          alignment: 0.5,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOutCubic);
+                    }
+                  });
+                },
+                onTap: (index) {
+                  Navigator.of(context).pop();
+                  pageController.animateToPage(
+                    quranInfo[index]["Number"] - 1,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.linear,
+                  );
+                },
               ),
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
@@ -226,15 +107,17 @@ class _AyahScreenState extends State<AyahScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(),
-                    TextResponsive(
-                            text: cubit.isFavorite
-                                ? cubit.getText("Favorite") ?? "Favorite"
-                                : cubit.isEn
-                                    ? ayahs[cubit.indexPage].transliteration
-                                    : ayahs[cubit.indexPage].name,
-                            maxSize: 20,
-                            size: size)
-                        .headline3(context),
+                    cubit.isSearch
+                        ? buildSearchField(cubit, width: size.width * 0.5)
+                        : TextResponsive(
+                                text: cubit.isFavorite
+                                    ? cubit.getText("Favorite") ?? "Favorite"
+                                    : cubit.isEn
+                                        ? ayahs[cubit.indexPage].transliteration
+                                        : ayahs[cubit.indexPage].name,
+                                maxSize: 20,
+                                size: size)
+                            .headline3(context),
                     IconButtonResponsive(
                       size: size,
                       icons: Icons.dehaze_rounded,
@@ -274,22 +157,52 @@ class _AyahScreenState extends State<AyahScreen> {
                             ),
                           ],
                         )
-                      : PageView.builder(
-                          controller: pageController,
-                          itemCount: ayahs.length,
-                          scrollDirection: Axis.horizontal,
-                          onPageChanged: (int index) {
-                            cubit.setIndexPage(index);
-                          },
-                          itemBuilder: (context, index) {
-                            itemScrollController = ItemScrollController();
-                            itemPositionsListener =
-                                ItemPositionsListener.create();
-                            itemPositionsListener.itemPositions
-                                .addListener(() => setState(() {}));
-                            return buildItemAyah(cubit, ayahs[index], size,
-                                cubit.indexSurah == index ? true : false);
-                          })),
+                      : cubit.isSearch
+                          ? cubit.ayahsSeash.isEmpty
+                              ? Center(
+                                  child: Text(
+                                    cubit.getText("NotSearch") ??
+                                        "No search results. Search in Arabic only",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  ),
+                                )
+                              : Column(
+                                  children: [
+                                    Flexible(
+                                      child: ListView.separated(
+                                          itemCount: cubit.ayahsSeash.length,
+                                          separatorBuilder: (context, index) =>
+                                              const SizedBox(height: 20),
+                                          itemBuilder: (context, index) =>
+                                              buildVersesItems(
+                                                context,
+                                                cubit.ayahsSeash[index],
+                                                index,
+                                                size,
+                                                cubit,
+                                                0,
+                                              )),
+                                    ),
+                                  ],
+                                )
+                          : PageView.builder(
+                              controller: pageController,
+                              itemCount: ayahs.length,
+                              scrollDirection: Axis.horizontal,
+                              onPageChanged: (int index) {
+                                cubit.setIndexPage(index);
+                              },
+                              itemBuilder: (context, index) {
+                                itemScrollController = ItemScrollController();
+                                itemPositionsListener =
+                                    ItemPositionsListener.create();
+                                itemPositionsListener.itemPositions
+                                    .addListener(() => setState(() {}));
+                                return buildItemAyah(cubit, ayahs[index], size,
+                                    cubit.indexSurah == index ? true : false);
+                              })),
             ),
           );
         });
@@ -356,6 +269,16 @@ class _AyahScreenState extends State<AyahScreen> {
                             : Icons.bookmark_outline_outlined,
                         size: size,
                         onPressed: onPressed),
+                  IconButtonResponsive(
+                    icons: Icons.ios_share_rounded,
+                    size: size,
+                    onPressed: () {
+                      _onShare(
+                          context,
+                          "${verses.name}\n${verses.text}  (${verses.id})",
+                          "Ayah");
+                    },
+                  ),
                 ],
               )
             ],
@@ -377,5 +300,65 @@ class _AyahScreenState extends State<AyahScreen> {
         ],
       ),
     );
+  }
+
+  Widget buildSearchField(cubit, {width}) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        child: Container(
+          height: 40,
+          width: width,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Theme.of(context).hintColor, width: 1)),
+          child: TextFormField(
+            controller: _controller,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintStyle: TextStyle(
+                color: Colors.grey[50],
+                fontSize: 16,
+              ),
+              icon: Icon(
+                Icons.search,
+                color: Colors.grey[50],
+              ),
+            ),
+            style: TextStyle(
+              color: Colors.grey[50],
+              fontSize: 18,
+            ),
+            cursorColor: Colors.white,
+            onChanged: (String text) {
+              print("Text: $text");
+              cubit.search(text);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _onShare(context, text, subject) async {
+    if (Platform.isWindows) {
+      ClipboardData data = ClipboardData(text: text);
+      await Clipboard.setData(data);
+      // _scaffoldKey.currentState.showSnackBar( SnackBar(content:  Text(text)));
+      SnackBar snackBar = SnackBar(
+          backgroundColor: Colors.black.withOpacity(0.8),
+          content: const Text(
+            "Done Copy",
+            textAlign: TextAlign.center,
+          ));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      await Share.share(
+        text,
+        subject: subject,
+        // sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
+    }
   }
 }

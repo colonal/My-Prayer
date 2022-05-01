@@ -58,6 +58,8 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
 
   void getLanguage() {
     isEn = CacheHelper.getData(key: "Language") ?? false;
+    myCity = CacheHelper.getData(key: "city");
+    myCountry = CacheHelper.getData(key: "country");
   }
 
   void showInfo() {

@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:my_prayer/presentation/screen/home_screen.dart';
+import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
+import '../../helpers/cache_helper.dart';
 import '../widgets/build_material_app.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -50,10 +52,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
           child: Stack(
         children: [
+          Positioned(
+              child: Container(
+            height: size.height,
+            width: size.width,
+            decoration: BoxDecoration(
+                color: Colors.green[900],
+                image: const DecorationImage(
+                    image: AssetImage("assets/images/backgound.png"),
+                    fit: BoxFit.cover)),
+          )),
+          Positioned(
+              child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+            child: Container(color: Colors.black.withOpacity(0.1)),
+          )),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
             child: Column(
@@ -79,7 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   Text(
                                     data[index][1],
                                     style: const TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -88,11 +106,35 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   Text(
                                     data[index][2],
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.grey[700],
+                                    style: const TextStyle(
+                                      color: Colors.white70,
                                       fontSize: 18,
                                     ),
                                   ),
+                                  const SizedBox(height: 20),
+                                  if (data[index][1] == "Prayer Time")
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Icon(
+                                          Icons.warning_amber_rounded,
+                                          color: Colors.redAccent,
+                                          size: 40,
+                                        ),
+                                        SizedBox(width: 20),
+                                        Expanded(
+                                          child: Text(
+                                            "Warning, the prayer time may be inaccurate",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                 ],
                               )),
                             ],
@@ -137,10 +179,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onTap: () {
                   navigator();
                 },
-                child: Text(
+                child: const Text(
                   "skip",
                   style: TextStyle(
-                    color: Colors.grey[700],
+                    color: Colors.white70,
                     fontSize: 18,
                   ),
                 ),
@@ -163,6 +205,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void navigator() {
+    CacheHelper.saveData(key: "onboarding", value: true);
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const BuildMaterialApp()));
   }

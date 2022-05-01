@@ -39,6 +39,7 @@ class Verses {
   final int id;
   final String name;
   final String text;
+  final String cleanText;
   final String translation;
   bool? favorite = false;
 
@@ -46,6 +47,7 @@ class Verses {
       {required this.name,
       required this.id,
       required this.text,
+      required this.cleanText,
       required this.translation,
       this.favorite});
   factory Verses.fromJson(Map json, String name) {
@@ -53,6 +55,7 @@ class Verses {
       name: name,
       id: json["id"],
       text: json["text"],
+      cleanText: json["cleanText"],
       translation: json["translation"] ?? "",
     );
   }

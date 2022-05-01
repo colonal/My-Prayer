@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:dio/dio.dart';
+import 'package:my_prayer/helpers/cache_helper.dart';
 
 import '../../constnats/strings.dart';
 
@@ -27,7 +28,8 @@ class PlacesWebServices {
       });
       // print("Data: ${response.data["predictions"]}");
       print("statusCode: ${response.statusCode}");
-
+      CacheHelper.saveData(key: "city", value: city);
+      CacheHelper.saveData(key: "country", value: country);
       return response.data["data"];
     } catch (e) {
       // print(e.toString());

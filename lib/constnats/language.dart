@@ -36,6 +36,9 @@ Map<String, String> textsAr = {
   "lightMode": "وضع الضوء",
   "language": "اللغة الإنجليزية",
   "updateLocation": "تحديث الموقع",
+  "share": "مشاركة",
+  "Search": "بحث",
+  "NotSearch": "لا يوجد  نتائج بحث.البحث باللغة العربية فقط",
 };
 
 Map<String, String> textsEn = {
@@ -76,4 +79,7 @@ Map<String, String> textsEn = {
   "lightMode": "Light Mode",
   "language": "language Arabic",
   "updateLocation": "Update Location",
+  "share": "Sharing",
+  "Search": "Search",
+  "NotSearch": "No search results. Search in Arabic only",
 };

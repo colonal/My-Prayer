@@ -179,7 +179,7 @@ class ItemAzkarScreen extends StatelessWidget {
                                             children: [
                                               Text(
                                                 cubit.getText("share") ??
-                                                    "share",
+                                                    "Sharing",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headline3!

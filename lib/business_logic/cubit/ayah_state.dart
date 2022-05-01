@@ -16,3 +16,5 @@ class ChangeSaveAyahState extends AyahState {}
 class AddVersesFavoriteState extends AyahState {}
 
 class ChangeIsFavoriteState extends AyahState {}
+
+class ChangeIsSeachState extends AyahState {}
