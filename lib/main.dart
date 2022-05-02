@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
     return !onboarding
         ? MaterialApp(
             scrollBehavior: MyCustomScrollBehavior(),
+            
             home: const OnboardingScreen(),
             debugShowCheckedModeBanner: false)
         : const BuildMaterialApp();

@@ -95,6 +95,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
       try {
         await getLocation(city: city, country: country)
             .onError((error, stackTrace) {
+              print(1);
           emit(UserLocationError());
           isLocation = false;
         });
@@ -235,9 +236,11 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
   }
 
   Future<void> getLocation({String? city, String? country}) async {
+    print("getLocation $country  $city");
     if (country == null || city == null) {
       try {
         var first = await LocationHelper.getUserLocation();
+        print(first);
         myCountry = first.country;
         myCity = first.administrativeArea;
       } catch (e) {

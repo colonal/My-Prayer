@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class IconButtonResponsive extends StatelessWidget {
   final IconData icons;
   final Size size;
+  final bool isBackGroundColor;
   final Function()? onPressed;
   final bool opacity;
   const IconButtonResponsive({
     required this.icons,
     required this.size,
     this.onPressed,
+    this.isBackGroundColor = false,
     this.opacity = false,
     Key? key,
   }) : super(key: key);
@@ -22,7 +24,8 @@ class IconButtonResponsive extends StatelessWidget {
               padding: EdgeInsets.all(size.width > 200 ? 0 : 0),
               child: Icon(
                 icons,
-                color:
+                color:isBackGroundColor ?
+                    Theme.of(context).backgroundColor:
                     Theme.of(context).cardColor.withOpacity(opacity ? 0.7 : 1),
                 size: size.width > 200 ? 20 : size.width * 0.05,
               ),
@@ -31,8 +34,8 @@ class IconButtonResponsive extends StatelessWidget {
               onPressed: onPressed,
               icon: Icon(
                 icons,
-                color:
-                    Theme.of(context).cardColor.withOpacity(opacity ? 0.7 : 1),
+                color: isBackGroundColor ?
+                    Theme.of(context).backgroundColor:Theme.of(context).cardColor.withOpacity(opacity ? 0.7 : 1)
               ),
               iconSize: size.width > 200 ? 20 : size.width * 0.05,
               padding: EdgeInsets.all(size.width > 200 ? 0 : 0),

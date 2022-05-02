@@ -106,7 +106,7 @@ class _TimePrayerScreen1State extends State<TimePrayerScreen> {
                     size: size,
                     name: cubit.getText(cubit.nexttime![0]) ?? "",
                     isEn: cubit.isEn,
-                    top: true,
+                    show: false,
                   ),
                   Positioned(
                       top: 5,
