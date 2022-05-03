@@ -35,7 +35,6 @@ class _AyahScreenState extends State<AyahScreen> {
     super.initState();
     pageController = PageController(
       initialPage: 0,
-      // keepPage: true,
     );
     _controller = TextEditingController();
   }
@@ -311,8 +310,10 @@ class _AyahScreenState extends State<AyahScreen> {
           height: 40,
           width: width,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Theme.of(context).hintColor, width: 1)),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Theme.of(context).cardColor, width: 1),
+            color: Theme.of(context).cardColor.withOpacity(0.2),
+          ),
           child: TextFormField(
             controller: _controller,
             decoration: InputDecoration(
@@ -332,7 +333,6 @@ class _AyahScreenState extends State<AyahScreen> {
             ),
             cursorColor: Colors.white,
             onChanged: (String text) {
-              print("Text: $text");
               cubit.search(text);
             },
           ),
@@ -345,7 +345,7 @@ class _AyahScreenState extends State<AyahScreen> {
     if (Platform.isWindows) {
       ClipboardData data = ClipboardData(text: text);
       await Clipboard.setData(data);
-      // _scaffoldKey.currentState.showSnackBar( SnackBar(content:  Text(text)));
+
       SnackBar snackBar = SnackBar(
           backgroundColor: Colors.black.withOpacity(0.8),
           content: const Text(
@@ -357,7 +357,6 @@ class _AyahScreenState extends State<AyahScreen> {
       await Share.share(
         text,
         subject: subject,
-        // sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
       );
     }
   }

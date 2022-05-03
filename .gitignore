@@ -46,3 +46,5 @@ app.*.map.json
 /android/app/release
 
 *.pbxproj text -crlf -diff -merge=union
+**/android/key.properties
+**/android/app/upload-keystore.jks

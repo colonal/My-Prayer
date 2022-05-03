@@ -59,7 +59,6 @@ class TimeRepository {
           },
         },
       };
-      // print("\ndate: ${value["date"]}");
       return TimesPrayers.fromJson(value as Map<String, dynamic>);
     }).toList();
   }

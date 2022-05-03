@@ -257,7 +257,7 @@ class ItemAzkarScreen extends StatelessWidget {
     if (Platform.isWindows) {
       ClipboardData data = ClipboardData(text: text);
       await Clipboard.setData(data);
-      // _scaffoldKey.currentState.showSnackBar( SnackBar(content:  Text(text)));
+
       SnackBar snackBar = SnackBar(
           backgroundColor: Colors.black.withOpacity(0.8),
           content: const Text(
@@ -269,7 +269,6 @@ class ItemAzkarScreen extends StatelessWidget {
       await Share.share(
         text,
         subject: subject,
-        // sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
       );
     }
   }

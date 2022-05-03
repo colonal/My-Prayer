@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../constnats/sql.dart';
@@ -17,7 +18,7 @@ class ContatoDAO {
       await db
           .rawInsert(ConnectionSQL.insertPrayer(timesPrayers: timesPrayers));
     } catch (error) {
-      print("error insert: $error");
+      debugPrint("error insert: $error");
     }
   }
 
@@ -41,7 +42,7 @@ class ContatoDAO {
       }
       return false;
     } catch (error) {
-      print("error delete: $error");
+      debugPrint("error delete: $error");
       return false;
     }
   }

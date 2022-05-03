@@ -44,7 +44,6 @@ class BuildMaterialApp extends StatelessWidget {
                     create: (context) => AyahCubit()..readJson()),
               ],
               child: const HomeScreen(),
-              //  const HomeScreen(),
             ),
           );
         },

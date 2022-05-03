@@ -74,15 +74,12 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     bool inData = await selectAll();
     if (inData && update) {
       try {
-        print("Is Data");
         lodingTimePrayer = false;
         emit(EmitTimePrayerState());
       } catch (_) {
-        print("Is Not Data");
         getDataApi(city: city, country: country);
       }
     } else {
-      print("Is Not Data1");
       getDataApi(city: city, country: country);
     }
   }
@@ -91,11 +88,9 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     isOnline = await hasNetwork();
     bool isLocation = true;
     if (isOnline) {
-      print("Online");
       try {
         await getLocation(city: city, country: country)
             .onError((error, stackTrace) {
-              print(1);
           emit(UserLocationError());
           isLocation = false;
         });
@@ -107,7 +102,6 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
         lodingTimePrayer = false;
         emit(EmitTimePrayerState());
       } catch (E) {
-        print("Is On Line Error: $E");
         emit(NatNetworkState());
       }
     }
@@ -120,16 +114,12 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     String formattedDate = DateFormat('dd-MM-y').format(now);
 
     timeDay = timePrayers.firstWhere((element) {
-      print(
-          "element: ${element.date.gregorian.date} formattedDate:$formattedDate");
       return element.date.gregorian.date == formattedDate;
     });
-    print("timeDay: $timeDay");
+
     bool check = false;
-    // TODO timeDay!.timingsJson["Fajr"] = "21:42";
-    // timeDay!.timingsJson["Fajr"] = "4:55";
+
     timeDay!.timingsJson.forEach((key, value) {
-      print("t.hour: ${t.hour}");
       if (((t.hour < int.parse(value.toString().split(":")[0])) ||
               ((t.hour == int.parse(value.toString().split(":")[0]))
                   ? (t.minute < int.parse(value.toString().split(":")[1]))
@@ -169,13 +159,7 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
         ""
       ];
     }
-    print("check: $check");
-    print("Next: $nexttime");
-    // try {
-    //   dufrantTime();
-    // } catch (e) {
-    //   print("E: $e");
-    // }
+
     emit(DufrantTimeState());
   }
 
@@ -195,20 +179,16 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
   Future<bool> selectAll() async {
     try {
       List times = await _contatoDAO.select();
-      // print("retorno: ${times}");
+
       try {
         timePrayers =
             await timeRepository.getTimesPrayers(times, isQuery: true);
       } catch (e) {
         print("ERROR selectAll: $e");
       }
-      print("timePrayers: ${timePrayers.length}");
       if (timePrayers.isNotEmpty) {
-        print(
-            "XxX: ${timePrayers[timePrayers.length - 1].date.gregorian.month} == ${(DateTime.now().month - 1)} bool ${timePrayers[timePrayers.length - 1].date.gregorian.month == (DateTime.now().month - 1)}");
         if (timePrayers[timePrayers.length - 1].date.gregorian.month ==
             (DateTime.now().month)) {
-          print("XxXx");
           nextTimePrayer();
           myCity = timePrayers[0].meta.timezone.split("/")[1];
           myCountry = timePrayers[0].meta.timezone.split("/")[0];
@@ -219,7 +199,6 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
 
       return false;
     } catch (E) {
-      print("EEE: $E");
       return false;
     }
   }
@@ -236,15 +215,13 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
   }
 
   Future<void> getLocation({String? city, String? country}) async {
-    print("getLocation $country  $city");
     if (country == null || city == null) {
       try {
         var first = await LocationHelper.getUserLocation();
-        print(first);
+
         myCountry = first.country;
         myCity = first.administrativeArea;
       } catch (e) {
-        print("Error location: $e");
         throw ("Erroe Location");
       }
     } else {

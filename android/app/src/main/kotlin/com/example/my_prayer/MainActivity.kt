@@ -1,4 +1,4 @@
-package com.example.my_prayer
+package codes.colonal.myPrayer
 
 import io.flutter.embedding.android.FlutterActivity
 

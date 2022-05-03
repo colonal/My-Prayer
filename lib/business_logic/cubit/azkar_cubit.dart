@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
-import '../../data/models/azkar.dart';
 
 import '../../constnats/language.dart';
+import '../../data/models/azkar.dart';
 import '../../helpers/cache_helper.dart';
 
 part 'azkar_state.dart';
@@ -24,7 +24,6 @@ class AzkarCubit extends Cubit<AzkarState> {
   }
 
   Future<void> readJson() async {
-    print("readJson");
     emit(AzkarLodingState());
 
     final String responsr =
@@ -46,7 +45,6 @@ class AzkarCubit extends Cubit<AzkarState> {
 
   void getFavorite() {
     List<String> favoriteList = CacheHelper.getDataList(key: 'azkarFavorite');
-    print("favoriteList: $favoriteList");
     List<Azkar> l = [];
     azkars.forEach((key, value) {
       l.addAll(value);
@@ -57,7 +55,7 @@ class AzkarCubit extends Cubit<AzkarState> {
         favorite.add(l[int.parse(i)]);
         l[int.parse(i)].favorite = true;
       } catch (e) {
-        print("Error: $e");
+        debugPrint("Error: $e");
       }
     }
   }
@@ -72,7 +70,7 @@ class AzkarCubit extends Cubit<AzkarState> {
       List<String> favoriteList = CacheHelper.getDataList(key: 'azkarFavorite');
       favoriteList = favoriteList.toList();
       favoriteList.add(azkar.id.toString());
-      print("Add favoriteList :$favoriteList");
+
       await CacheHelper.saveData(key: "azkarFavorite", value: favoriteList);
       favorite.add(azkar);
     } else {
@@ -81,7 +79,6 @@ class AzkarCubit extends Cubit<AzkarState> {
       var favoriteList = CacheHelper.getDataList(key: 'azkarFavorite');
       favoriteList.removeWhere((item) => item == azkar.id.toString());
       await CacheHelper.saveData(key: "azkarFavorite", value: favoriteList);
-      print("Remove favoriteList :$favoriteList");
     }
 
     emit(AddFavoriteState());

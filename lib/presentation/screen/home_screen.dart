@@ -66,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }
               if (!cubit.lodingTimePrayer!) {
-                // return const TimePrayerScreen();
                 return Scaffold(
                   backgroundColor: themeData.primaryColor,
                   body: SafeArea(

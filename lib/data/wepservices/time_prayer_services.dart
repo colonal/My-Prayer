@@ -26,26 +26,22 @@ class PlacesWebServices {
         "method": 1,
         "month": DateTime.now().month,
       });
-      // print("Data: ${response.data["predictions"]}");
+
       print("statusCode: ${response.statusCode}");
       CacheHelper.saveData(key: "city", value: city);
       CacheHelper.saveData(key: "country", value: country);
       return response.data["data"];
-    } catch (e) {
-      // print(e.toString());
-    }
+    } catch (_) {}
     return [];
   }
 
   Future<Map> getLocation() async {
-    print("#" * 50);
     try {
       Response response = await dio.post(ipBaseURL,
           options: Options(
               headers: {"content-Type": "application/x-www-form-urlencoded"}));
 
       print("statusCode: ${response.statusCode}");
-      print("data: ${response.data}");
 
       return response.data;
     } catch (e) {

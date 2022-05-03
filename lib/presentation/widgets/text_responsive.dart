@@ -66,13 +66,6 @@ class TextResponsive {
 
   Widget headline4(context,
       {bool bold = false, Color? color, int maxLines = 2}) {
-    print(
-      size.width > 250
-          ? maxSize
-          : size.width > 100
-              ? size.width * 0.040
-              : size.width * 0.04,
-    );
     return FittedBox(
       fit: BoxFit.cover,
       child: Text(
