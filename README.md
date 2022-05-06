@@ -1,6 +1,10 @@
 <div align="center">
 
 <img src="assets\icon\icon.png" alt='My Prayer logo' height="200em"/>
+  
+[![Version](https://img.shields.io/github/v/release/colonal/My-Prayer?include_prereleases&sort=semver)](https://github.com/colonal/My-Prayer/releases/latest)
+[![Downloads](https://PlayBadges.pavi2410.me/badge/downloads?id=codes.colonal.myPrayer)](https://play.google.com/store/apps/details?id=codes.colonal.myPrayer)
+[![Github Downloads](https://img.shields.io/github/downloads/colonal/My-Prayer/total?logo=Github)](https://github.com/colonal/My-Prayer/releases)
 
 # My Prayer
 
