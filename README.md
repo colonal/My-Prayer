@@ -10,9 +10,21 @@
 [![Github Downloads](https://img.shields.io/github/downloads/colonal/My-Prayer/total?logo=Github)](https://github.com/colonal/My-Prayer/releases)
   
 This is an application to display the Quran, prayer times and remembrances
-
 <div align="left">
+  
+  <br>
+  
+  
 
+
+
+  
+  # Downloads
+  <br>
+  <a href='https://play.google.com/store/apps/details?id=codes.colonal.myPrayer&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png', style="width:300px;height:100px;"/></a>
+  
+  
+  
   ## Holy Quran <img src="assets/images/qoran.png" alt='Quran' height="30em"/>
   * Bookmark
   * Content
