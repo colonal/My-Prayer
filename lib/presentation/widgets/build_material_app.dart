@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../business_logic/cubit/ayah/ayah_cubit.dart';
 import '../screen/home_screen.dart';
 
+import '../../business_logic/cubit/ayah/ayah_cubit.dart';
 import '../../business_logic/cubit/azkar/azkar_cubit.dart';
 import '../../business_logic/cubit/home/home_cubit.dart';
 import '../../business_logic/cubit/time_prayer/time_prayer_cubit.dart';
@@ -22,7 +22,6 @@ class BuildMaterialApp extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           HomeCubit cubit = HomeCubit.get(context);
-          print("cubit.isDark: ${cubit.isDark}");
           return MaterialApp(
             title: 'My Prayer',
             debugShowCheckedModeBanner: false,
@@ -30,9 +29,7 @@ class BuildMaterialApp extends StatelessWidget {
             darkTheme: AppTheme.dark,
             themeMode: cubit.isDark == null
                 ? ThemeMode.system
-                : cubit.isDark!
-                    ? ThemeMode.dark
-                    : ThemeMode.light,
+                : (cubit.isDark! ? ThemeMode.dark : ThemeMode.light),
             scrollBehavior: MyCustomScrollBehavior(),
             home: MultiBlocProvider(
               providers: [

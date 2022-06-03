@@ -26,8 +26,7 @@ class ShowDataTime extends StatelessWidget {
     return BlocConsumer<TimePrayerCubit, TimePrayerState>(
         listener: (_, __) {},
         buildWhen: (_, state) {
-          if (state is DufrantTimeState) return false;
-          return true;
+          return state is! DufrantTimeState;
         },
         builder: (context, state) {
           return Container(

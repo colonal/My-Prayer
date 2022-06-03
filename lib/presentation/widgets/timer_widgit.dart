@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'text_responsive.dart';
 
 import '../../business_logic/cubit/time_prayer/time_prayer_cubit.dart';
@@ -14,7 +15,7 @@ class TimerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<TimePrayerCubit, TimePrayerState>(
         listener: (_, __) {},
-        builder: (context, state) {
+        builder: (context, _) {
           return TextResponsive(
             text: "- ${cubit.nexttime![4].split(".")[0]}",
             maxSize: 20,

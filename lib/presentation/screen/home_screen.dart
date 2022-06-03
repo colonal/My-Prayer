@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../business_logic/cubit/azkar/azkar_cubit.dart';
 import '../../business_logic/cubit/qoran/qoran_cubit.dart';
+import '../../business_logic/cubit/time_prayer/time_prayer_cubit.dart';
 import 'Qoran/quran_screen.dart';
 import 'ayah/ayah_screen.dart';
 import 'azkar/azkar_screen.dart';
@@ -11,7 +12,6 @@ import '../../business_logic/cubit/home/home_cubit.dart';
 import '../widgets/show_data_time.dart';
 import 'time_prayer/time_prayer_screen.dart';
 
-import '../../business_logic/cubit/time_prayer/time_prayer_cubit.dart';
 import '../widgets/text_responsive.dart';
 import 'loading_screen.dart';
 import 'time_prayer/net_networck_screen.dart';

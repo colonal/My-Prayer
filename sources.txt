@@ -1,5 +1,0 @@
-time prayer api: http://api.aladhan.com/v1/calendarByCity
-qoran pdf: 
-quran json :https://github.com/rn0x/Quran-Json
-azkar json: https://github.com/osamayy/azkar-db/blob/master/azkar.json
-quran-json: https://github.com/risan/quran-json

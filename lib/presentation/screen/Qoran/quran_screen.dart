@@ -20,23 +20,23 @@ class _QuranScreenState extends State<QuranScreen> {
   late PageController pageController;
   @override
   void initState() {
+    pageController = PageController(initialPage: 0);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    pageController = PageController(initialPage: 0);
     super.initState();
   }
 
   @override
   void dispose() {
+    pageController.dispose();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    pageController.dispose();
     super.dispose();
   }
 
