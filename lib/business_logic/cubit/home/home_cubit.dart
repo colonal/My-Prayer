@@ -1,8 +1,11 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../constnats/language.dart';
-import '../../helpers/cache_helper.dart';
+import '../../../constnats/language.dart';
+import '../../../helpers/cache_helper.dart';
 
 part 'home_state.dart';
 
@@ -12,7 +15,7 @@ class HomeCubit extends Cubit<HomeState> {
   static HomeCubit get(context) => BlocProvider.of(context);
 
   bool isEn = false;
-  bool isDark = false;
+  bool? isDark;
 
   String? getText(String text) {
     if (isEn == true) return textsEn[text];
@@ -30,7 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void getMode() {
-    isDark = CacheHelper.getData(key: "isDark") ?? false;
+    isDark = CacheHelper.getData(key: "isDark");
     emit(GetModeState());
   }
 
@@ -40,9 +43,18 @@ class HomeCubit extends Cubit<HomeState> {
     emit(ChangeLanguageState());
   }
 
-  void changeMode() {
-    isDark = !isDark;
+  void changeMode(context) {
+    if (isDark != null) {
+      isDark = !isDark!;
+    } else {
+      isDark = !isDarkModeSystem(context);
+    }
     CacheHelper.saveData(key: "isDark", value: isDark);
     emit(ChangeModeState());
+  }
+
+  bool isDarkModeSystem(context) {
+    final brightness = MediaQuery.of(context).platformBrightness;
+    return brightness == Brightness.dark;
   }
 }

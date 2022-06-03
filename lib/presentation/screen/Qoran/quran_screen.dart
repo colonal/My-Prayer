@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../business_logic/cubit/qoran_cubit.dart';
+import '../../../business_logic/cubit/qoran/qoran_cubit.dart';
 
 import '../../../constnats/quran.dart';
 import '../../widgets/my_divider.dart';
@@ -20,12 +21,22 @@ class _QuranScreenState extends State<QuranScreen> {
   @override
   void initState() {
     pageController = PageController(initialPage: 0);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     super.initState();
   }
 
   @override
   void dispose() {
     pageController.dispose();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     super.dispose();
   }
 

@@ -11,6 +11,8 @@ class EmitTimePrayerLodingState extends TimePrayerState {}
 
 class DufrantTimeState extends TimePrayerState {}
 
+class NextTimePrayerState extends TimePrayerState {}
+
 class UserLocationError extends TimePrayerState {}
 
 class ShowInfoState extends TimePrayerState {}

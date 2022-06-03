@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../business_logic/cubit/azkar_cubit.dart';
+
+import '../../../business_logic/cubit/azkar/azkar_cubit.dart';
 import 'item_azkar_screen.dart';
 import '../../widgets/my_divider.dart';
 

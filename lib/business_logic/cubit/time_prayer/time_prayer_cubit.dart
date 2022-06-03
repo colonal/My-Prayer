@@ -11,11 +11,11 @@ import 'package:intl/intl.dart';
 import 'package:my_prayer/constnats/language.dart';
 import 'package:my_prayer/helpers/location_helper.dart';
 
-import '../../data/models/times_prayers.dart';
-import '../../data/repository/time_prayer_repo.dart';
-import '../../data/wepservices/time_prayer_services.dart';
-import '../../helpers/cache_helper.dart';
-import '../../helpers/contato_dao.dart';
+import '../../../data/models/times_prayers.dart';
+import '../../../data/repository/time_prayer_repo.dart';
+import '../../../data/wepservices/time_prayer_services.dart';
+import '../../../helpers/cache_helper.dart';
+import '../../../helpers/contato_dao.dart';
 
 part 'time_prayer_state.dart';
 
@@ -118,7 +118,6 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
     });
 
     bool check = false;
-
     timeDay!.timingsJson.forEach((key, value) {
       if (((t.hour < int.parse(value.toString().split(":")[0])) ||
               ((t.hour == int.parse(value.toString().split(":")[0]))
@@ -160,7 +159,8 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
       ];
     }
 
-    emit(DufrantTimeState());
+    emit(NextTimePrayerState());
+    dufrantTime();
   }
 
   void cancelTimer() {
@@ -242,30 +242,22 @@ class TimePrayerCubit extends Cubit<TimePrayerState> {
       return false;
     }
   }
-}
 
-class MyBlocObserver extends BlocObserver {
-  @override
-  void onCreate(BlocBase bloc) {
-    super.onCreate(bloc);
-    print('onCreate -- ${bloc.runtimeType}');
-  }
+  void dufrantTime() {
+    time = Timer.periodic(const Duration(seconds: 1), (timer) {
+      var to = (DateFormat('dd MMM yyyy HH:mm')
+          .parse("${nexttime![3]} " + nexttime![2]));
+      var from = DateTime.now();
 
-  @override
-  void onChange(BlocBase bloc, Change change) {
-    super.onChange(bloc, change);
-    print('onChange -- ${bloc.runtimeType}, $change');
-  }
+      nexttime![4] = to.difference(from).toString();
+      Duration v = to.difference(from);
 
-  @override
-  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    print('onError -- ${bloc.runtimeType}, $error');
-    super.onError(bloc, error, stackTrace);
-  }
-
-  @override
-  void onClose(BlocBase bloc) {
-    super.onClose(bloc);
-    print('onClose -- ${bloc.runtimeType}');
+      if (v.inSeconds <= 0) {
+        time?.cancel();
+        cancelTimer();
+        nextTimePrayer();
+      }
+      emit(DufrantTimeState());
+    });
   }
 }

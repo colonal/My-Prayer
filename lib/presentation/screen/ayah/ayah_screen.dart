@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../business_logic/cubit/ayah_cubit.dart';
+import '../../../business_logic/cubit/ayah/ayah_cubit.dart';
 import 'drawer_screen.dart';
 import '../loading_screen.dart';
 import '../../widgets/my_divider.dart';
