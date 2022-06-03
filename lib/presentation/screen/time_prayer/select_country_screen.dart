@@ -1,7 +1,7 @@
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter/material.dart';
 
-import '../../../business_logic/cubit/time_prayer_cubit.dart';
+import '../../../business_logic/cubit/time_prayer/time_prayer_cubit.dart';
 import '../../widgets/text_responsive.dart';
 
 class SelectCountryScreen extends StatelessWidget {

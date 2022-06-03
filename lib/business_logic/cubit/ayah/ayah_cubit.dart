@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import '../../helpers/cache_helper.dart';
 
-import '../../constnats/language.dart';
-import '../../data/models/ayah.dart';
+import '../../../constnats/language.dart';
+import '../../../data/models/ayah.dart';
+import '../../../helpers/cache_helper.dart';
 
 part 'ayah_state.dart';
 
@@ -123,16 +123,26 @@ class AyahCubit extends Cubit<AyahState> {
   void search(String text) {
     if (text.isNotEmpty) {
       ayahsSeash.clear();
+      List equal = [];
+      List startWith = [];
+      List contains = [];
       for (var items in ayahs) {
         for (Verses item in items.verses) {
-          if (item.cleanText.contains(text)) {
-            ayahsSeash.add(item);
+          if (item.cleanText.trim() == text) {
+            equal.add(item);
+          } else if (item.cleanText.startsWith(text)) {
+            startWith.add(item);
+          } else if (item.cleanText.contains(text)) {
+            contains.add(item);
           }
         }
       }
+
+      ayahsSeash.addAll(equal);
+      ayahsSeash.addAll(startWith);
+      ayahsSeash.addAll(contains);
+
       emit(ChangeIsSeachState());
     }
-
-    // versesFavorite.add(verses);
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../widgets/show_data_time.dart';
 
-import '../../../business_logic/cubit/time_prayer_cubit.dart';
+import '../../../business_logic/cubit/time_prayer/time_prayer_cubit.dart';
 
 import '../../../presentation/widgets/text_responsive.dart';
 
@@ -94,6 +94,10 @@ class _TimePrayerScreen1State extends State<TimePrayerScreen> {
       value: cubit,
       child: BlocConsumer<TimePrayerCubit, TimePrayerState>(
         listener: ((context, state) {}),
+        listenWhen: (_, state) {
+          if (state is DufrantTimeState) return false;
+          return true;
+        },
         builder: (context, state) => Scaffold(
           backgroundColor: themeData.primaryColor,
           body: SafeArea(

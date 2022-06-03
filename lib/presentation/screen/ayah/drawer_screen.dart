@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../business_logic/cubit/ayah_cubit.dart';
+import '../../../business_logic/cubit/ayah/ayah_cubit.dart';
 import '../../../constnats/quran.dart';
 import '../../widgets/my_divider.dart';
 

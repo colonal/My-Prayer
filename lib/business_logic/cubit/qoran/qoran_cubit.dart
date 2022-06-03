@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../constnats/language.dart';
+import '../../../constnats/language.dart';
 
-import '../../constnats/quran.dart';
-import '../../helpers/cache_helper.dart';
+import '../../../constnats/quran.dart';
+import '../../../helpers/cache_helper.dart';
 
 part 'qoran_state.dart';
 

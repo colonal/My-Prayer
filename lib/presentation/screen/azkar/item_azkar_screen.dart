@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../business_logic/cubit/azkar_cubit.dart';
+import '../../../business_logic/cubit/azkar/azkar_cubit.dart';
 import '../../../data/models/azkar.dart';
 import '../../widgets/icon_button_responsive.dart';
 import '../../widgets/my_divider.dart';

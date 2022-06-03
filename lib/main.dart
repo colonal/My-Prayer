@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'business_logic/cubit/my_bloc_observer/my_bloc_observer.dart';
 import 'presentation/screen/onboarding_screen.dart';
 import 'presentation/widgets/build_material_app.dart';
-
-import 'business_logic/cubit/time_prayer_cubit.dart';
 
 import 'custom_scroll_behavior.dart';
 import 'helpers/cache_helper.dart';
@@ -28,7 +27,6 @@ class MyApp extends StatelessWidget {
     return !onboarding
         ? MaterialApp(
             scrollBehavior: MyCustomScrollBehavior(),
-            
             home: const OnboardingScreen(),
             debugShowCheckedModeBanner: false)
         : const BuildMaterialApp();

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../business_logic/cubit/home_cubit.dart';
+import '../../business_logic/cubit/home/home_cubit.dart';
 import '../widgets/my_divider.dart';
 
-import '../../business_logic/cubit/time_prayer_cubit.dart';
+import '../../business_logic/cubit/time_prayer/time_prayer_cubit.dart';
 import '../widgets/icon_button_responsive.dart';
 import '../widgets/text_responsive.dart';
 
@@ -45,14 +45,22 @@ class SettingScreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      cubit.changeMode();
+                      cubit.changeMode(context);
                     },
                     child: Row(
                       children: [
                         TextResponsive(
-                                text: cubit.isDark
-                                    ? cubit.getText("lightMode") ?? "Light Mode"
-                                    : cubit.getText("darkMode") ?? "Dark Mode",
+                                text: cubit.isDark == null
+                                    ? cubit.isDarkModeSystem(context)
+                                        ? cubit.getText("lightMode") ??
+                                            "Light Mode"
+                                        : cubit.getText("darkMode") ??
+                                            "Dark Mode"
+                                    : cubit.isDark!
+                                        ? cubit.getText("lightMode") ??
+                                            "Light Mode"
+                                        : cubit.getText("darkMode") ??
+                                            "Dark Mode",
                                 maxSize: 30,
                                 size: size)
                             .headline3(context, bold: true),
