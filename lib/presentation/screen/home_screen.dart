@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_prayer/business_logic/cubit/listen/listen_cubit.dart';
+import 'package:my_prayer/presentation/screen/listen/listen_screen.dart';
 import '../../business_logic/cubit/azkar/azkar_cubit.dart';
 import '../../business_logic/cubit/qoran/qoran_cubit.dart';
 import '../../business_logic/cubit/time_prayer/time_prayer_cubit.dart';
@@ -161,6 +163,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ..readJson(),
                                         child: const AzkarScreen(),
                                       ),
+                                    ));
+                                  }),
+                              buidGridItem(
+                                  context: context,
+                                  themeData: themeData,
+                                  size: size,
+                                  text: cubitHome.getText("listen") ?? "Listen",
+                                  image: "assets/images/voice.png",
+                                  isEn: cubitHome.isEn,
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (_) => const ListenScreen(),
                                     ));
                                   }),
                               buidGridItem(

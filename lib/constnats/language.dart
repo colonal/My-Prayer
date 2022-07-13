@@ -39,6 +39,7 @@ Map<String, String> textsAr = {
   "share": "مشاركة",
   "Search": "بحث",
   "NotSearch": "لا يوجد  نتائج بحث.البحث باللغة العربية فقط",
+  "listen": "إستماع",
 };
 
 Map<String, String> textsEn = {
@@ -82,4 +83,5 @@ Map<String, String> textsEn = {
   "share": "Sharing",
   "Search": "Search",
   "NotSearch": "No search results. Search in Arabic only",
+  "listen": "Listen",
 };

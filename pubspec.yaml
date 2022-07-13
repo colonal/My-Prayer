@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  audioplayers: ^1.0.1
   auto_size_text: ^3.0.0
   country_state_city_picker: ^1.2.8
   country_state_city_pro: ^0.0.3
@@ -41,8 +42,7 @@ dependencies:
   geolocator_windows: ^0.1.0
   google_fonts: ^2.3.1
   intl: ^0.17.0
-  
-  scrollable_positioned_list: ^0.2.3
+  scrollable_positioned_list: ^0.3.2
   share_plus: ^4.0.4
   share_plus_windows: ^3.0.0
   shared_preferences: ^2.0.13
@@ -51,9 +51,9 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.4
 
 dev_dependencies:
-  flutter_lints: ^1.0.0
-  flutter_launcher_icons: "^0.9.2"
   flutter_app_name: ^0.1.0
+  flutter_launcher_icons: "^0.9.2"
+  flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
 
@@ -92,6 +92,7 @@ flutter:
     - assets/images/mode.gif
     - assets/images/location.gif
     - assets/images/language.png
+    - assets/images/voice.png
     - assets/quran/azkar.json
     - assets/quran/ayah.json
     - assets/quran/quran-images/
