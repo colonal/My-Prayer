@@ -3,29 +3,46 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_prayer/business_logic/cubit/listen/listen_cubit.dart';
 import 'package:my_prayer/business_logic/cubit/listen/listen_state.dart';
 import 'package:my_prayer/data/wepservices/audio_files_services.dart';
+import 'package:my_prayer/presentation/screen/listen/recitations_screen.dart';
 import 'package:my_prayer/presentation/screen/loading_screen.dart';
+import 'package:my_prayer/presentation/widgets/snackbar_message.dart';
 
 import '../../../constnats/quran.dart';
 import '../../widgets/icon_button_responsive.dart';
 import '../../widgets/text_responsive.dart';
+import '../../widgets/net_networck_screen.dart';
 
-class ListenScreen extends StatelessWidget {
+class ListenScreen extends StatefulWidget {
   const ListenScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ListenScreen> createState() => _ListenScreenState();
+}
+
+class _ListenScreenState extends State<ListenScreen> {
+  ListenCubit create = ListenCubit(audioFilesServices: AudioFilesServices());
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocProvider<ListenCubit>(
-      create: (context) => ListenCubit(audioFilesServices: AudioFilesServices())
+      create: (context) => create
         ..getData()
-        ..getAudioFiles()
-        ..initAudio(),
+        ..getAudioFiles(),
       child: BlocBuilder<ListenCubit, ListenState>(builder: (context, state) {
         ListenCubit cubit = ListenCubit.get(context);
+        if (state is ErrorAudioFiles) {
+          cubit.restartData();
+
+          return NatNatworckScreen(onPressed: () {
+            cubit.getAudioFiles();
+          });
+        }
         if (state is LoadingAudioFiles) {
           return const LoadingScreen(text: "Loding ...");
         }
         return Scaffold(
+          key: _scaffoldKey,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0.0,
@@ -50,6 +67,48 @@ class ListenScreen extends StatelessWidget {
               children: [
                 Column(
                   children: [
+                    InkWell(
+                      onTap: () {
+                        cubit.getRecitations();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  RecitationsScreen(listenCubit: create)),
+                        );
+                      },
+                      child: Container(
+                        height: 50,
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        color: Theme.of(context).primaryColor.withOpacity(0.6),
+                        child: Row(
+                          children: [
+                            IconButtonResponsive(
+                                icons: Icons.settings, size: size),
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  cubit.isEn
+                                      ? cubit.recitationNameEn
+                                      : cubit.recitationNameAr,
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColorDark,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Divider(
+                      thickness: 2,
+                      height: 3,
+                      color: Colors.black,
+                    ),
                     Flexible(
                       child: ListView.separated(
                         itemCount: quranInfo.length,
@@ -159,6 +218,14 @@ class ListenScreen extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          if (cubit.name.isNotEmpty)
+                            TextResponsive(
+                              text: cubit.name,
+                              maxSize: 14,
+                              size: size,
+                            ).headline4(context,
+                                color: Theme.of(context).backgroundColor,
+                                bold: true),
                           Slider(
                             value: cubit.position.inSeconds.toDouble(),
                             min: 0,
@@ -185,18 +252,91 @@ class ListenScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 10),
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Theme.of(context).backgroundColor,
-                            child: IconButtonResponsive(
-                              icons: cubit.isPlaying
-                                  ? Icons.pause
-                                  : Icons.play_arrow,
-                              size: size,
-                              maxeSize: 35,
-                              // isBackGroundColor: true,
-                              onPressed: cubit.playOnPressed,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 18,
+                                    backgroundColor: cubit.index == 0
+                                        ? Theme.of(context)
+                                            .backgroundColor
+                                            .withOpacity(0.5)
+                                        : Theme.of(context).backgroundColor,
+                                    child: IconButtonResponsive(
+                                      icons: Icons.skip_previous_rounded,
+                                      size: size,
+                                      maxeSize: 30,
+                                      // isBackGroundColor: true,
+                                      onPressed: cubit.previousAudio,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  CircleAvatar(
+                                    radius: 18,
+                                    backgroundColor:
+                                        Theme.of(context).backgroundColor,
+                                    child: IconButtonResponsive(
+                                      icons: Icons.replay_10_outlined,
+                                      size: size,
+                                      maxeSize: 30,
+                                      // isBackGroundColor: true,
+                                      onPressed: cubit.replay10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              CircleAvatar(
+                                radius: 35,
+                                backgroundColor:
+                                    Theme.of(context).backgroundColor,
+                                child: cubit.isLoading
+                                    ? const CircularProgressIndicator.adaptive()
+                                    : IconButtonResponsive(
+                                        icons: cubit.isPlaying
+                                            ? Icons.pause
+                                            : Icons.play_arrow,
+                                        size: size,
+                                        maxeSize: 35,
+                                        // isBackGroundColor: true,
+                                        onPressed: cubit.playOnPressed,
+                                      ),
+                              ),
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 18,
+                                    backgroundColor:
+                                        Theme.of(context).backgroundColor,
+                                    child: IconButtonResponsive(
+                                      icons: Icons.forward_10_outlined,
+                                      size: size,
+                                      maxeSize: 30,
+                                      // isBackGroundColor: true,
+                                      onPressed: cubit.forward10,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  CircleAvatar(
+                                    radius: 18,
+                                    backgroundColor: cubit.index ==
+                                            ListenCubit.audioFiles.length - 1
+                                        ? Theme.of(context)
+                                            .backgroundColor
+                                            .withOpacity(0.5)
+                                        : Theme.of(context).backgroundColor,
+                                    child: IconButtonResponsive(
+                                      icons: Icons.skip_next_rounded,
+                                      size: size,
+                                      maxeSize: 30,
+                                      // isBackGroundColor: true,
+                                      onPressed: cubit.nextAudio,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           )
                         ],
                       ),

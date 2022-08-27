@@ -15,9 +15,25 @@ class AudioFilesServices {
   }
 
   Future<List<dynamic>> getAudioFiles(int id) async {
-    Response response = await dio.get("$audioFiles$id", queryParameters: {
-      "language": "ar",
-    });
-    return response.data["audio_files"];
+    try {
+      print("$audioFiles$id");
+      Response response = await dio.get("$audioFiles$id", queryParameters: {
+        "language": "ar",
+      });
+      return response.data["audio_files"];
+    } catch (_) {
+      throw Exception();
+    }
+  }
+
+  Future<List<dynamic>> getRecitations() async {
+    try {
+      Response response = await dio.get(recitations, queryParameters: {
+        "language": "ar",
+      });
+      return response.data["recitations"];
+    } catch (_) {
+      throw Exception();
+    }
   }
 }

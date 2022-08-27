@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../business_logic/cubit/time_prayer/time_prayer_cubit.dart';
-import '../../widgets/text_responsive.dart';
+import '../../business_logic/cubit/time_prayer/time_prayer_cubit.dart';
+import 'text_responsive.dart';
 
 class NatNatworckScreen extends StatelessWidget {
-  final TimePrayerCubit cubit;
-  const NatNatworckScreen({required this.cubit, Key? key}) : super(key: key);
+  final void Function()? onPressed;
+  const NatNatworckScreen({required this.onPressed, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +38,7 @@ class NatNatworckScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: MaterialButton(
-                  onPressed: () {
-                    cubit.emitTimePrayerCubit1();
-                  },
+                  onPressed: onPressed,
                   child:
                       TextResponsive(text: "Try Again", maxSize: 20, size: size)
                           .headline2(context),

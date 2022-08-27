@@ -40,6 +40,7 @@ Map<String, String> textsAr = {
   "Search": "بحث",
   "NotSearch": "لا يوجد  نتائج بحث.البحث باللغة العربية فقط",
   "listen": "إستماع",
+  "recitations": "التلاوات"
 };
 
 Map<String, String> textsEn = {
@@ -84,4 +85,5 @@ Map<String, String> textsEn = {
   "Search": "Search",
   "NotSearch": "No search results. Search in Arabic only",
   "listen": "Listen",
+  "recitations": "Recitations",
 };

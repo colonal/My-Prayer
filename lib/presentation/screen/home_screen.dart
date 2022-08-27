@@ -16,7 +16,7 @@ import 'time_prayer/time_prayer_screen.dart';
 
 import '../widgets/text_responsive.dart';
 import 'loading_screen.dart';
-import 'time_prayer/net_networck_screen.dart';
+import '../widgets/net_networck_screen.dart';
 import 'time_prayer/select_country_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,7 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
               final cubit = TimePrayerCubit.get(ctx);
               final cubitHome = HomeCubit.get(ctx);
               if (state is NatNetworkState) {
-                return NatNatworckScreen(cubit: cubit);
+                return NatNatworckScreen(
+                  onPressed: () {
+                    cubit.emitTimePrayerCubit1();
+                  },
+                );
               }
               if ((state is UserLocationError)) {
                 return SelectCountryScreen(
@@ -172,11 +176,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                   text: cubitHome.getText("listen") ?? "Listen",
                                   image: "assets/images/voice.png",
                                   isEn: cubitHome.isEn,
-                                  onTap: () {
-                                    Navigator.of(context)
+                                  onTap: () async {
+                                    final data = await Navigator.of(context)
                                         .push(MaterialPageRoute(
                                       builder: (_) => const ListenScreen(),
                                     ));
+                                    if (data == 1) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                        backgroundColor: Colors.redAccent,
+                                        content: Text(
+                                          "An internet connection error occurred",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ));
+                                    }
                                   }),
                               buidGridItem(
                                   context: context,
