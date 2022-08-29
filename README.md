@@ -48,6 +48,10 @@ This is an application to display the Quran, prayer times and remembrances
   * View prayer times throughout the month
   * Display of upcoming prayers and the time remaining for them
   
+  ## Listen Quran  <img src="assets/images/voice.png" alt='Listen Quran' height="30em"/>
+  * Listening to the Quran
+  * Reader's Choice
+  
   ## Screenshot
   <img src="screenshot/1.jpg" height="250em" /> <img src="screenshot/2.jpg" height="250em" />
   <img src="screenshot/3.jpg" height="250em" /> <img src="screenshot/4.jpg" height="250em" />
@@ -57,7 +61,8 @@ This is an application to display the Quran, prayer times and remembrances
   <img src="screenshot/11.jpg" height="250em" /> <img src="screenshot/12.jpg" height="250em" />
   <img src="screenshot/13.jpg" height="250em" /> <img src="screenshot/14.jpg" height="250em" />
   <img src="screenshot/15.jpg" height="250em" /> <img src="screenshot/16.jpg" height="250em" />
-  <img src="screenshot/17.jpg" height="250em" />
+  <img src="screenshot/17.png" height="250em" /> <img src="screenshot/18.png" height="250em" />
+  <img src="screenshot/19.jpg" height="250em" />
   #
   ## Sorurces
   * time prayer api: http://api.aladhan.com/v1/calendarByCity
@@ -65,4 +70,5 @@ This is an application to display the Quran, prayer times and remembrances
   * quran json : https://raw.githubusercontent.com/risan/quran-json/main/dist/quran.json
   * The Noble Quran is written without formation: http://www.islih.com/view/7505
   * azkar json: https://github.com/osamayy/azkar-db/blob/master/azkar.json
+  * Listen Quran API: https://quran.api-docs.io/v4/getting-started/introduction
   
