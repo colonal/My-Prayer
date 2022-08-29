@@ -71,47 +71,30 @@ class ListenCubit extends Cubit<ListenState> {
 
     audioPlayer.onPositionChanged.listen((newPosition) {
       position = newPosition;
-      print("Duration: $duration\t\t position: $position");
+      print(
+          "Duration: $duration\t\t position: $position \t\t${duration.toString().split(".")[0] == position.toString().split(".")[0]}");
       if (!isClose) emit(PositionChangedState());
       if (duration.toString().split(".")[0] ==
           position.toString().split(".")[0]) setAudoi(++index);
     }).onError((e) {
       print("\nE  onPositionChanged: $e");
     });
-
-    // audioPlayer.
-    // audioPlayer.onSeekComplete.listen((event) {
-    //   print("isPlaying: $isPlaying");
-    //   isPlaying = isPlaying ? false : isPlaying;
-    //   // setAudoi(++index);
-    // });
   }
 
   Future setAudoi(index) async {
     try {
       index = index;
       name = quranInfo[index]["Name"];
-      url = "https://download.quranicaudio.com/qdc/abdul_baset/mujawwad/1.mp3";
-      // audioPlayer.setReleaseMode(isLoob ? ReleaseMode.loop : ReleaseMode.stop);
-      // audioPlayer.setVolume(1.0);
+      url = audioFiles[index].audioUrl;
       print("audioFiles[index].audioUrl: ${audioFiles[index].audioUrl}");
       changeStateLoading();
-      // audioPlayer
-      //     .setSourceUrl(audioFiles[index].audioUrl)
-      //     .then((value) => changeStateLoading())
-      //     .catchError((onError) {
-      //   changeStateLoading();
-      //   print("onError: $onError");
-      // });
       audioPlayer
-          .play(UrlSource(audioFiles[index].audioUrl))
+          .play(UrlSource(url))
           .then((value) => changeStateLoading())
           .catchError((onError) {
         changeStateLoading();
         print("onError: $onError");
       });
-      // playOnPressed();
-      // await audioPlayer.resume();
     } catch (e) {
       print("E: $e");
     }
@@ -264,8 +247,7 @@ class ListenCubit extends Cubit<ListenState> {
     emit(ChangeRecitationsState());
   }
 
-  void restartData() {
-    audioFiles = [];
+  void restartData({isEmit = false}) {
     isPlaying = false;
     isLoob = false;
     isLoading = false;
@@ -274,6 +256,11 @@ class ListenCubit extends Cubit<ListenState> {
     url = "";
     isClose = false;
     name = "";
+    if (isEmit) {
+      emit(RestartDataState());
+    } else {
+      audioFiles = [];
+    }
   }
 
   @override

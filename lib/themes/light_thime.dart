@@ -11,6 +11,7 @@ ThemeData lightTheme = ThemeData(
   primaryColor: const Color(0xff1B5E20),
   primaryColorDark: AppColor.bodyColorDark,
   cardColor: AppColor.buttonBackgroundColorDark,
+  dividerColor: const Color(0xff7e7e7e).withOpacity(0.8),
   textTheme: const TextTheme(
     headline1: TextStyle(
       color: Colors.white,

@@ -65,7 +65,7 @@ class _QuranScreenState extends State<QuranScreen> {
                           }),
                     child: PageView.builder(
                       controller: pageController,
-                      itemCount: 603,
+                      itemCount: 604,
                       onPageChanged: (index) {
                         cubit.changePage(index);
                       },

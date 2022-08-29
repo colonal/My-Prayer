@@ -39,7 +39,7 @@ class _ListenScreenState extends State<ListenScreen> {
           });
         }
         if (state is LoadingAudioFiles) {
-          return const LoadingScreen(text: "Loding ...");
+          return LoadingScreen(text: cubit.getText("Loading") ?? "Loading ...");
         }
         return Scaffold(
           key: _scaffoldKey,
@@ -210,136 +210,157 @@ class _ListenScreenState extends State<ListenScreen> {
                 if (cubit.url.isNotEmpty)
                   Positioned(
                     bottom: 0,
-                    child: Container(
-                      width: size.width,
-                      color: Theme.of(context).cardColor.withOpacity(0.6),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (cubit.name.isNotEmpty)
-                            TextResponsive(
-                              text: cubit.name,
-                              maxSize: 14,
-                              size: size,
-                            ).headline4(context,
-                                color: Theme.of(context).backgroundColor,
-                                bold: true),
-                          Slider(
-                            value: cubit.position.inSeconds.toDouble(),
-                            min: 0,
-                            max: cubit.duration.inSeconds.toDouble(),
-                            onChanged: (value) => cubit.sliderChanged(value),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Stack(
+                      alignment: AlignmentDirectional.topEnd,
+                      children: [
+                        Container(
+                          width: size.width,
+                          color: Theme.of(context).dividerColor,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TextResponsive(
-                                text: cubit.position.toString().split(".")[0],
-                                maxSize: 14,
-                                size: size,
-                              ).headline4(context,
-                                  color: Theme.of(context).backgroundColor,
-                                  bold: true),
-                              TextResponsive(
-                                text: cubit.duration.toString().split(".")[0],
-                                maxSize: 14,
-                                size: size,
-                              ).headline4(context,
-                                  color: Theme.of(context).backgroundColor,
-                                  bold: true)
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                              if (cubit.name.isNotEmpty)
+                                TextResponsive(
+                                  text: cubit.isEn
+                                      ? quranInfo[cubit.index]["English_Name"]
+                                          .toString()
+                                      : quranInfo[cubit.index]["Name"]
+                                          .toString(),
+                                  maxSize: 14,
+                                  size: size,
+                                ).headline4(context,
+                                    color: Colors.white, bold: true),
+                              Slider(
+                                value: cubit.position.inSeconds.toDouble(),
+                                min: 0,
+                                max: cubit.duration.inSeconds.toDouble(),
+                                onChanged: (value) =>
+                                    cubit.sliderChanged(value),
+                              ),
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor: cubit.index == 0
-                                        ? Theme.of(context)
-                                            .backgroundColor
-                                            .withOpacity(0.5)
-                                        : Theme.of(context).backgroundColor,
-                                    child: IconButtonResponsive(
-                                      icons: Icons.skip_previous_rounded,
-                                      size: size,
-                                      maxeSize: 30,
-                                      // isBackGroundColor: true,
-                                      onPressed: cubit.previousAudio,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor:
-                                        Theme.of(context).backgroundColor,
-                                    child: IconButtonResponsive(
-                                      icons: Icons.replay_10_outlined,
-                                      size: size,
-                                      maxeSize: 30,
-                                      // isBackGroundColor: true,
-                                      onPressed: cubit.replay10,
-                                    ),
-                                  ),
+                                  TextResponsive(
+                                    text:
+                                        cubit.position.toString().split(".")[0],
+                                    maxSize: 14,
+                                    size: size,
+                                  ).headline4(context,
+                                      color: Colors.white, bold: true),
+                                  TextResponsive(
+                                    text:
+                                        cubit.duration.toString().split(".")[0],
+                                    maxSize: 14,
+                                    size: size,
+                                  ).headline4(context,
+                                      color: Colors.white, bold: true)
                                 ],
                               ),
-                              CircleAvatar(
-                                radius: 35,
-                                backgroundColor:
-                                    Theme.of(context).backgroundColor,
-                                child: cubit.isLoading
-                                    ? const CircularProgressIndicator.adaptive()
-                                    : IconButtonResponsive(
-                                        icons: cubit.isPlaying
-                                            ? Icons.pause
-                                            : Icons.play_arrow,
-                                        size: size,
-                                        maxeSize: 35,
-                                        // isBackGroundColor: true,
-                                        onPressed: cubit.playOnPressed,
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 18,
+                                        backgroundColor: cubit.index == 0
+                                            ? Theme.of(context)
+                                                .backgroundColor
+                                                .withOpacity(0.5)
+                                            : Theme.of(context).backgroundColor,
+                                        child: IconButtonResponsive(
+                                          icons: Icons.skip_previous_rounded,
+                                          size: size,
+                                          maxeSize: 30,
+                                          // isBackGroundColor: true,
+                                          onPressed: cubit.previousAudio,
+                                        ),
                                       ),
-                              ),
-                              Row(
-                                children: [
+                                      const SizedBox(width: 5),
+                                      CircleAvatar(
+                                        radius: 18,
+                                        backgroundColor:
+                                            Theme.of(context).backgroundColor,
+                                        child: IconButtonResponsive(
+                                          icons: Icons.replay_10_outlined,
+                                          size: size,
+                                          maxeSize: 30,
+                                          // isBackGroundColor: true,
+                                          onPressed: cubit.replay10,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   CircleAvatar(
-                                    radius: 18,
+                                    radius: 35,
                                     backgroundColor:
                                         Theme.of(context).backgroundColor,
-                                    child: IconButtonResponsive(
-                                      icons: Icons.forward_10_outlined,
-                                      size: size,
-                                      maxeSize: 30,
-                                      // isBackGroundColor: true,
-                                      onPressed: cubit.forward10,
-                                    ),
+                                    child: cubit.isLoading
+                                        ? const CircularProgressIndicator
+                                            .adaptive()
+                                        : IconButtonResponsive(
+                                            icons: cubit.isPlaying
+                                                ? Icons.pause
+                                                : Icons.play_arrow,
+                                            size: size,
+                                            maxeSize: 35,
+                                            // isBackGroundColor: true,
+                                            onPressed: cubit.playOnPressed,
+                                          ),
                                   ),
-                                  const SizedBox(width: 5),
-                                  CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor: cubit.index ==
-                                            ListenCubit.audioFiles.length - 1
-                                        ? Theme.of(context)
-                                            .backgroundColor
-                                            .withOpacity(0.5)
-                                        : Theme.of(context).backgroundColor,
-                                    child: IconButtonResponsive(
-                                      icons: Icons.skip_next_rounded,
-                                      size: size,
-                                      maxeSize: 30,
-                                      // isBackGroundColor: true,
-                                      onPressed: cubit.nextAudio,
-                                    ),
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 18,
+                                        backgroundColor:
+                                            Theme.of(context).backgroundColor,
+                                        child: IconButtonResponsive(
+                                          icons: Icons.forward_10_outlined,
+                                          size: size,
+                                          maxeSize: 30,
+                                          // isBackGroundColor: true,
+                                          onPressed: cubit.forward10,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 5),
+                                      CircleAvatar(
+                                        radius: 18,
+                                        backgroundColor: cubit.index ==
+                                                ListenCubit.audioFiles.length -
+                                                    1
+                                            ? Theme.of(context)
+                                                .backgroundColor
+                                                .withOpacity(0.5)
+                                            : Theme.of(context).backgroundColor,
+                                        child: IconButtonResponsive(
+                                          icons: Icons.skip_next_rounded,
+                                          size: size,
+                                          maxeSize: 30,
+                                          // isBackGroundColor: true,
+                                          onPressed: cubit.nextAudio,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
-                              ),
+                              )
                             ],
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              cubit.restartData(isEmit: true);
+                            },
+                            icon: const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                            ))
+                      ],
                     ),
                   ),
               ],

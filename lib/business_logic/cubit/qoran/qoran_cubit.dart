@@ -57,9 +57,12 @@ class QoranCubit extends Cubit<QoranState> {
 
     for (int index = 0; index < quranInfo.length; ++index) {
       if (quranInfo[index]["Number_Page"] <= page &&
-          page < quranInfo[index + 1]["Number_Page"]) {
+          page <
+              quranInfo[index + 1 >= 114 ? index : index + 1]["Number_Page"]) {
         indexQuranInfo = index;
         break;
+      } else {
+        indexQuranInfo = 113;
       }
     }
 

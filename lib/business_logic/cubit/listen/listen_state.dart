@@ -29,3 +29,5 @@ class GetRecitationsState extends ListenState {}
 class ErrorRecitationsState extends ListenState {}
 
 class ChangeRecitationsState extends ListenState {}
+
+class RestartDataState extends ListenState {}
