@@ -62,7 +62,9 @@ This is an application to display the Quran, prayer times and remembrances
   <img src="screenshot/13.jpg" height="250em" /> <img src="screenshot/14.jpg" height="250em" />
   <img src="screenshot/15.jpg" height="250em" /> <img src="screenshot/16.jpg" height="250em" />
   <img src="screenshot/17.png" height="250em" /> <img src="screenshot/18.png" height="250em" />
-  <img src="screenshot/19.jpg" height="250em" />
+  <img src="screenshot/19.jpg" height="250em" /> <img src="screenshot/19.png" height="250em" />
+  <img src="screenshot/20.png" height="250em" /> <img src="screenshot/21.png" height="250em" />
+  <img src="screenshot/22.png" height="250em" /> <img src="screenshot/23.png" height="250em" />
   #
   ## Sorurces
   * time prayer api: http://api.aladhan.com/v1/calendarByCity
