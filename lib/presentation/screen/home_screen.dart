@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_prayer/business_logic/cubit/listen/listen_cubit.dart';
 import 'package:my_prayer/presentation/screen/listen/listen_screen.dart';
 import '../../business_logic/cubit/azkar/azkar_cubit.dart';
 import '../../business_logic/cubit/qoran/qoran_cubit.dart';

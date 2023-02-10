@@ -5,7 +5,6 @@ import 'package:my_prayer/business_logic/cubit/listen/listen_state.dart';
 import 'package:my_prayer/data/wepservices/audio_files_services.dart';
 import 'package:my_prayer/presentation/screen/listen/recitations_screen.dart';
 import 'package:my_prayer/presentation/screen/loading_screen.dart';
-import 'package:my_prayer/presentation/widgets/snackbar_message.dart';
 
 import '../../../constnats/quran.dart';
 import '../../widgets/icon_button_responsive.dart';

@@ -12,10 +12,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   bool onboarding = CacheHelper.getData(key: "onboarding") ?? false;
-  BlocOverrides.runZoned(
-    () => runApp(MyApp(onboarding)),
-    blocObserver: MyBlocObserver(),
-  );
+  Bloc.observer = MyBlocObserver();
+  runApp(MyApp(onboarding));
 }
 
 class MyApp extends StatelessWidget {

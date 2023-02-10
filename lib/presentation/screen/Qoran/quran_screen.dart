@@ -20,6 +20,7 @@ class QuranScreen extends StatefulWidget {
 
 class _QuranScreenState extends State<QuranScreen> {
   late PageController pageController;
+
   @override
   void initState() {
     pageController = PageController(initialPage: 0);
@@ -46,7 +47,11 @@ class _QuranScreenState extends State<QuranScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     QoranCubit cubit = QoranCubit.get(context);
-
+    if (MediaQuery.of(context).size.width > 600) {
+      QoranCubit.isLargeScreen = true;
+    } else {
+      QoranCubit.isLargeScreen = false;
+    }
     return BlocConsumer<QoranCubit, QoranState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -130,7 +135,7 @@ class _QuranScreenState extends State<QuranScreen> {
                     Row(
                       children: [
                         Expanded(
-                          child: newMethod(
+                          child: _buildIconButton(
                               text: cubit.getText("saveMark") ?? "Save Mark",
                               icon: Icons.bookmark_border_sharp,
                               onTap: () {
@@ -139,13 +144,20 @@ class _QuranScreenState extends State<QuranScreen> {
                         ),
                         buildDivider1(isVertical: true),
                         Expanded(
-                          child: newMethod(
+                          child: _buildIconButton(
                               text: cubit.getText("GoToTag") ?? "Go To Tag",
                               icon: Icons.bookmark,
                               onTap: () {
+                                if (cubit.indexFavorite == null) {
+                                  return;
+                                }
+                                int page = QoranCubit.isLargeScreen
+                                    ? double.tryParse(
+                                            "${((cubit.indexFavorite!) / 2)}")!
+                                        .floor()
+                                    : cubit.indexFavorite!;
                                 if (cubit.indexFavorite != null) {
-                                  pageController
-                                      .jumpToPage(cubit.indexFavorite!);
+                                  pageController.jumpToPage(page);
                                 }
                               }),
                         ),
@@ -162,7 +174,7 @@ class _QuranScreenState extends State<QuranScreen> {
                     Row(
                       children: [
                         Expanded(
-                          child: newMethod(
+                          child: _buildIconButton(
                               text: cubit.getText("Contents") ?? "Contents",
                               icon: Icons.menu_rounded,
                               onTap: () async {
@@ -171,13 +183,17 @@ class _QuranScreenState extends State<QuranScreen> {
                                         builder: (_) =>
                                             ContentsScreen(isEn: cubit.isEn)));
                                 if (index != null) {
-                                  pageController.jumpToPage(index - 1);
+                                  int page = QoranCubit.isLargeScreen
+                                      ? double.tryParse("${((index - 1) / 2)}")!
+                                          .floor()
+                                      : index - 1;
+                                  pageController.jumpToPage(page);
                                 }
                               }),
                         ),
                         buildDivider1(isVertical: true),
                         Expanded(
-                          child: newMethod(
+                          child: _buildIconButton(
                               text: cubit.getText("Pages") ?? "Pages",
                               icon: Icons.menu_book_sharp,
                               onTap: () async {
@@ -185,14 +201,20 @@ class _QuranScreenState extends State<QuranScreen> {
                                     MaterialPageRoute(
                                         builder: (_) =>
                                             PagesScreen(isEn: cubit.isEn)));
+
                                 if (index != null) {
-                                  pageController.jumpToPage(index - 1);
+                                  int page = QoranCubit.isLargeScreen
+                                      ? double.tryParse("${((index - 1) / 2)}")!
+                                          .floor()
+                                      : index - 1;
+
+                                  pageController.jumpToPage(page);
                                 }
                               }),
                         ),
                         buildDivider1(isVertical: true),
                         Expanded(
-                          child: newMethod(
+                          child: _buildIconButton(
                             text: cubit.getText("SealPrayer") ?? "SealPrayer",
                             image: "assets/images/dua-hands.png",
                             onTap: () => Navigator.of(context).push(
@@ -260,21 +282,49 @@ class _QuranScreenState extends State<QuranScreen> {
           : () {
               cubit.openMenu();
             }),
-      child: PageView.builder(
-        controller: pageController,
-        itemCount: 604,
-        onPageChanged: (index) {
-          cubit.changePage(index);
-        },
-        itemBuilder: (context, index) => Image.asset(
-          "assets/quran/quran-images/${index + 1}.png",
-          fit: BoxFit.fill,
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: PageView.builder(
+          controller: pageController,
+          itemCount: QoranCubit.isLargeScreen ? 302 : 604,
+          onPageChanged: (index) {
+            cubit.changePage(QoranCubit.isLargeScreen ? index * 2 : index);
+          },
+          itemBuilder: (context, index) => QoranCubit.isLargeScreen
+              ? _showImageDesktop(index)
+              : _showImageMobile(index),
         ),
       ),
     );
   }
 
-  InkWell newMethod({required String text, icon, onTap, image}) {
+  _showImageMobile(index) {
+    return Image.asset(
+      "assets/quran/quran-images/${index + 1}.png",
+      fit: BoxFit.fill,
+    );
+  }
+
+  _showImageDesktop(index) {
+    return Row(
+      children: [
+        Expanded(
+          child: Image.asset(
+            "assets/quran/quran-images/${index * 2 + 1}.png",
+            fit: BoxFit.fill,
+          ),
+        ),
+        Expanded(
+          child: Image.asset(
+            "assets/quran/quran-images/${index * 2 + 2}.png",
+            fit: BoxFit.fill,
+          ),
+        ),
+      ],
+    );
+  }
+
+  InkWell _buildIconButton({required String text, icon, onTap, image}) {
     return InkWell(
       onTap: onTap,
       child: Row(

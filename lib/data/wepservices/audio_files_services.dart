@@ -16,7 +16,6 @@ class AudioFilesServices {
 
   Future<List<dynamic>> getAudioFiles(int id) async {
     try {
-      print("$audioFiles$id");
       Response response = await dio.get("$audioFiles$id", queryParameters: {
         "language": "ar",
       });

@@ -2,7 +2,6 @@
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:my_prayer/business_logic/cubit/listen/listen_state.dart';
 import 'package:my_prayer/data/models/audio_files.dart';
 import 'package:my_prayer/data/wepservices/audio_files_services.dart';

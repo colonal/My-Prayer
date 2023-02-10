@@ -11,6 +11,7 @@ class QoranCubit extends Cubit<QoranState> {
   QoranCubit() : super(QoranInitial());
 
   static QoranCubit get(context) => BlocProvider.of(context);
+  static bool isLargeScreen = false;
 
   int page = 1;
   double opacity = 1;
