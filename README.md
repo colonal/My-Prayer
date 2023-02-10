@@ -20,9 +20,11 @@ This is an application to display the Quran, prayer times and remembrances
 
   
   # Downloads
-  <br>
-  <a href='https://play.google.com/store/apps/details?id=codes.colonal.myPrayer&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png', style="width:300px;height:100px;"/></a>
-  
+<br>
+<a href='https://github.com/colonal/My-Prayer/releases/tag/V2.5'><img alt='Downloads windows' src='https://seeklogo.com/images/M/microsoft-windows-logo-2D0FCE27A4-seeklogo.com.png', style="width:150px;height:100px;"/></a>
+<a href='https://play.google.com/store/apps/details?id=codes.colonal.myPrayer&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png', style="width:300px;height:100px;"/></a>
+ 
+ 
   
   
   ## Holy Quran <img src="assets/images/qoran.png" alt='Quran' height="30em"/>
