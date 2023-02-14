@@ -76,142 +76,141 @@ class _HomeScreenState extends State<HomeScreen> {
               if (!cubit.lodingTimePrayer!) {
                 return Scaffold(
                   backgroundColor: themeData.primaryColor,
-                  body: SafeArea(
-                      child: Column(
+                  body: Column(
                     children: [
-                      ShowDataTime(
-                        cubit: cubit,
-                        size: size,
-                        name: cubitHome.getText(cubit.nexttime![0]) ?? "",
-                        isEn: cubitHome.isEn,
-                      ),
-                      Expanded(
-                        child: Container(
-                          color: themeData.backgroundColor,
-                          width: size.width,
-                          child: GridView(
-                            gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 3 / 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20,
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            children: [
-                              buidGridItem(
-                                  context: context,
-                                  themeData: themeData,
-                                  size: size,
-                                  text: cubitHome.getText("TimePrayer") ??
-                                      "Time Prayer",
-                                  image: "assets/images/pray.png",
-                                  isEn: cubitHome.isEn,
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (_) => BlocProvider.value(
-                                        value: cubit..getLanguage(),
-                                        child: TimePrayerScreen(cubit: cubit),
-                                      ),
-                                    ));
-                                  }),
-                              buidGridItem(
-                                  context: context,
-                                  themeData: themeData,
-                                  size: size,
-                                  text: cubitHome.getText("Ayah") ?? "Ayah",
-                                  image: "assets/images/ayah.png",
-                                  isEn: cubitHome.isEn,
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (_) => BlocProvider<AyahCubit>(
-                                          create: (context) =>
-                                              AyahCubit()..readJson(),
-                                          child: const AyahScreen()),
-                                    ));
-                                  }),
-                              buidGridItem(
-                                  context: context,
-                                  themeData: themeData,
-                                  size: size,
-                                  text: cubitHome.getText("Quran") ?? "Quran",
-                                  image: "assets/images/qoran.png",
-                                  isEn: cubitHome.isEn,
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (_) => BlocProvider(
-                                        create: (_) => QoranCubit()
-                                          ..getLanguage()
-                                          ..getFavorite(),
-                                        child: const QuranScreen(),
-                                      ),
-                                    ));
-                                  }),
-                              buidGridItem(
-                                  context: context,
-                                  themeData: themeData,
-                                  size: size,
-                                  text: cubitHome.getText("Azkar") ?? "Azkar",
-                                  image: "assets/images/prayer.png",
-                                  isEn: cubitHome.isEn,
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (_) => BlocProvider.value(
-                                        value: AzkarCubit()
-                                          ..getLanguage()
-                                          ..readJson(),
-                                        child: const AzkarScreen(),
-                                      ),
-                                    ));
-                                  }),
-                              buidGridItem(
-                                  context: context,
-                                  themeData: themeData,
-                                  size: size,
-                                  text: cubitHome.getText("listen") ?? "Listen",
-                                  image: "assets/images/voice.png",
-                                  isEn: cubitHome.isEn,
-                                  onTap: () async {
-                                    final data = await Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (_) => const ListenScreen(),
-                                    ));
-                                    if (data == 1) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                        backgroundColor: Colors.redAccent,
-                                        content: Text(
-                                          "An internet connection error occurred",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ));
-                                    }
-                                  }),
-                              buidGridItem(
-                                  context: context,
-                                  themeData: themeData,
-                                  size: size,
-                                  text: cubitHome.getText("Settings") ??
-                                      "Settings",
-                                  image: "assets/images/setting.png",
-                                  isEn: cubitHome.isEn,
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (_) =>
-                                          SettingScreen(cubitTime: cubit),
-                                    ));
-                                  }),
-                            ],
-                          ),
+                  ShowDataTime(
+                    cubit: cubit,
+                    size: size,
+                    name: cubitHome.getText(cubit.nexttime![0]) ?? "",
+                    isEn: cubitHome.isEn,
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: themeData.backgroundColor,
+                      width: size.width,
+                      child: GridView(
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 200,
+                          childAspectRatio: 3 / 2,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
                         ),
+                        padding: const EdgeInsets.all(8),
+                        children: [
+                          buidGridItem(
+                              context: context,
+                              themeData: themeData,
+                              size: size,
+                              text: cubitHome.getText("TimePrayer") ??
+                                  "Time Prayer",
+                              image: "assets/images/pray.png",
+                              isEn: cubitHome.isEn,
+                              onTap: () {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                  builder: (_) => BlocProvider.value(
+                                    value: cubit..getLanguage(),
+                                    child: TimePrayerScreen(cubit: cubit),
+                                  ),
+                                ));
+                              }),
+                          buidGridItem(
+                              context: context,
+                              themeData: themeData,
+                              size: size,
+                              text: cubitHome.getText("Ayah") ?? "Ayah",
+                              image: "assets/images/ayah.png",
+                              isEn: cubitHome.isEn,
+                              onTap: () {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                  builder: (_) => BlocProvider<AyahCubit>(
+                                      create: (context) =>
+                                          AyahCubit()..readJson(),
+                                      child: const AyahScreen()),
+                                ));
+                              }),
+                          buidGridItem(
+                              context: context,
+                              themeData: themeData,
+                              size: size,
+                              text: cubitHome.getText("Quran") ?? "Quran",
+                              image: "assets/images/qoran.png",
+                              isEn: cubitHome.isEn,
+                              onTap: () {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                  builder: (_) => BlocProvider(
+                                    create: (_) => QoranCubit()
+                                      ..getLanguage()
+                                      ..getFavorite(),
+                                    child: const QuranScreen(),
+                                  ),
+                                ));
+                              }),
+                          buidGridItem(
+                              context: context,
+                              themeData: themeData,
+                              size: size,
+                              text: cubitHome.getText("Azkar") ?? "Azkar",
+                              image: "assets/images/prayer.png",
+                              isEn: cubitHome.isEn,
+                              onTap: () {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                  builder: (_) => BlocProvider.value(
+                                    value: AzkarCubit()
+                                      ..getLanguage()
+                                      ..readJson(),
+                                    child: const AzkarScreen(),
+                                  ),
+                                ));
+                              }),
+                          buidGridItem(
+                              context: context,
+                              themeData: themeData,
+                              size: size,
+                              text: cubitHome.getText("listen") ?? "Listen",
+                              image: "assets/images/voice.png",
+                              isEn: cubitHome.isEn,
+                              onTap: () async {
+                                final data = await Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                  builder: (_) => const ListenScreen(),
+                                ));
+                                if (data == 1) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    backgroundColor: Colors.redAccent,
+                                    content: Text(
+                                      "An internet connection error occurred",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ));
+                                }
+                              }),
+                          buidGridItem(
+                              context: context,
+                              themeData: themeData,
+                              size: size,
+                              text: cubitHome.getText("Settings") ??
+                                  "Settings",
+                              image: "assets/images/setting.png",
+                              isEn: cubitHome.isEn,
+                              onTap: () {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                  builder: (_) =>
+                                      SettingScreen(cubitTime: cubit),
+                                ));
+                              }),
+                        ],
                       ),
+                    ),
+                  ),
                     ],
-                  )),
+                  ),
                 );
               }
               return LoadingScreen(

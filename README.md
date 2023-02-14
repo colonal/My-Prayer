@@ -21,11 +21,15 @@ This is an application to display the Quran, prayer times and remembrances
   
   # Downloads
 <br>
-<a href='https://github.com/colonal/My-Prayer/releases/tag/V2.5'><img alt='Downloads windows' src='https://seeklogo.com/images/M/microsoft-windows-logo-2D0FCE27A4-seeklogo.com.png', style="width:150px;height:100px;"/></a>
-<a href='https://play.google.com/store/apps/details?id=codes.colonal.myPrayer&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png', style="width:300px;height:100px;"/></a>
+<dev>
+<a href='https://play.google.com/store/apps/details?id=codes.colonal.myPrayer&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://icon-library.com/images/download-on-the-app-store-icon/download-on-the-app-store-icon-5.jpg', style="width:250px;height:80px;"/></a>
+ <a   href='https://apps.apple.com/app/my-prayer-my-life/id1671243861?platform=iphone'><img alt='Get it on App Store' src='https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg', style="width:300px;height:80px;"/></a>
+<br>
+<br>
+<a href='https://github.com/colonal/My-Prayer/releases/tag/V2.5'><img alt='Downloads windows' src='https://seeklogo.com/images/M/microsoft-windows-logo-2D0FCE27A4-seeklogo.com.png', style="width:150px;height:110px;"/></a>
+ </dev>
  
- 
-  
+  <br><br>
   
   ## Holy Quran <img src="assets/images/qoran.png" alt='Quran' height="30em"/>
   * Bookmark

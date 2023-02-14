@@ -8,7 +8,7 @@ ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: AppColor.bodyColorDark,
   hintColor: AppColor.textColorDark,
   primaryColorLight: AppColor.buttonBackgroundColorDark,
-  primaryColor: const Color(0xff1B5E20),
+  primaryColor: AppColor.buttonBackgroundColorDark,
   primaryColorDark: AppColor.bodyColor,
   cardColor: AppColor.buttonBackgroundColor,
   dividerColor: const Color(0xff2e2e2e).withOpacity(0.8),

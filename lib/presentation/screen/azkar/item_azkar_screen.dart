@@ -266,9 +266,11 @@ class ItemAzkarScreen extends StatelessWidget {
           ));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
+      final Size size = MediaQuery.of(context).size;
       await Share.share(
         text,
         subject: subject,
+        sharePositionOrigin: Rect.fromLTWH(0, 0, size.width, size.height / 2.5),
       );
     }
   }

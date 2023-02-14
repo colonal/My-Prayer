@@ -48,6 +48,7 @@ class _AyahScreenState extends State<AyahScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<AyahCubit, AyahState>(
         listener: ((context, state) {}),
@@ -207,7 +208,7 @@ class _AyahScreenState extends State<AyahScreen> {
         });
   }
 
-  Widget buildItemAyah(AyahCubit cubit, Ayah ayah, Size size, bool savePage) {
+  Widget buildItemAyah(AyahCubit cubit, Ayah ayah, Size size, bool savePage,) {
     return Container(
       width: size.width,
       height: 200,
@@ -275,7 +276,9 @@ class _AyahScreenState extends State<AyahScreen> {
                       _onShare(
                           context,
                           "${verses.name}\n${verses.text}  (${verses.id})",
-                          "Ayah");
+                          "Ayah",
+                          
+                          );
                     },
                   ),
                 ],
@@ -341,7 +344,7 @@ class _AyahScreenState extends State<AyahScreen> {
     );
   }
 
-  void _onShare(context, text, subject) async {
+  void _onShare(context, text, subject,) async {
     if (Platform.isWindows) {
       ClipboardData data = ClipboardData(text: text);
       await Clipboard.setData(data);
@@ -354,10 +357,14 @@ class _AyahScreenState extends State<AyahScreen> {
           ));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
+      
+      final Size size = MediaQuery.of(context).size;
       await Share.share(
         text,
         subject: subject,
+        sharePositionOrigin: Rect.fromLTWH(0, 0, size.width, size.height / 2.5),
       );
+      
     }
   }
 }

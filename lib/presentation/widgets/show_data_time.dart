@@ -37,36 +37,38 @@ class ShowDataTime extends StatelessWidget {
                 image: const DecorationImage(
                     image: AssetImage("assets/images/backgound.png"),
                     fit: BoxFit.cover)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextResponsive(text: name, maxSize: 18, size: size)
-                    .headline2(context),
-                SizedBox(height: size.height > 435 ? 5 : 0),
-                TextResponsive(
-                        text: cubit.nexttime![1], maxSize: 50, size: size)
-                    .headline1(context),
-                SizedBox(height: size.height > 435 ? 5 : 0),
-                TimerWidget(cubit: cubit, size: size),
-                SizedBox(height: size.height > 435 ? 5 : 0),
-                if (show)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButtonResponsive(
-                        icons: Icons.location_on_outlined,
-                        size: size,
-                        isBackGroundColor: true,
-                      ),
-                      TextResponsive(
-                              text:
-                                  "${isEn ? cubit.timeDay!.hijri.monthEn : cubit.timeDay!.hijri.monthAr} : ${cubit.timeDay!.hijri.date}",
-                              maxSize: 15,
-                              size: size)
-                          .headline2(context, bold: false),
-                    ],
-                  )
-              ],
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextResponsive(text: name, maxSize: 18, size: size)
+                      .headline2(context),
+                  SizedBox(height: size.height > 435 ? 5 : 0),
+                  TextResponsive(
+                          text: cubit.nexttime![1], maxSize: 50, size: size)
+                      .headline1(context),
+                  SizedBox(height: size.height > 435 ? 5 : 0),
+                  TimerWidget(cubit: cubit, size: size),
+                  SizedBox(height: size.height > 435 ? 5 : 0),
+                  if (show)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButtonResponsive(
+                          icons: Icons.location_on_outlined,
+                          size: size,
+                          isBackGroundColor: true,
+                        ),
+                        TextResponsive(
+                                text:
+                                    "${isEn ? cubit.timeDay!.hijri.monthEn : cubit.timeDay!.hijri.monthAr} : ${cubit.timeDay!.hijri.date}",
+                                maxSize: 15,
+                                size: size)
+                            .headline2(context, bold: false),
+                      ],
+                    )
+                ],
+              ),
             ),
           );
         });
